@@ -1,0 +1,8 @@
+{
+  "name": "schweini-diary",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate-config": "node scripts/generate-config.js"
+  }
+}
