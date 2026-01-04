@@ -11,7 +11,7 @@ const lightboxImg = document.getElementById('lightbox-img');
 
 const identities = [
   { name: 'Elisa', emoji: '👱‍♀️', color: 'bg-teal-50 border-teal-200 text-teal-800' },
-  { name: 'Mama', emoji: '👩🏽', color: 'bg-pink-50 border-pink-200 text-pink-700' },
+  { name: 'Mama', emoji: '👩', color: 'bg-pink-50 border-pink-200 text-pink-700' },
   { name: 'Papa', emoji: '🧔', color: 'bg-blue-50 border-blue-200 text-blue-700' },
   { name: 'Oma', emoji: '👵', color: 'bg-purple-50 border-purple-200 text-purple-700' },
   { name: 'Opa', emoji: '👴', color: 'bg-purple-50 border-purple-200 text-purple-700' },
