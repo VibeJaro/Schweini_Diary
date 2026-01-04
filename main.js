@@ -1,5 +1,6 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from './config.js';
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked@12.0.2/lib/marked.esm.js';
 
 const feedContainer = document.getElementById('feed-container');
 const configWarning = document.getElementById('config-warning');
@@ -21,6 +22,8 @@ const identities = [
 let supabaseClient = null;
 let pendingComment = null;
 let entriesState = [];
+
+marked.setOptions({ breaks: true });
 
 function lucideRefresh() {
   if (window.lucide?.createIcons) {
@@ -50,8 +53,8 @@ function showConfigMissing() {
   configWarning?.classList.remove('hidden');
   feedContainer.innerHTML = `
     <div class="bg-white rounded-2xl border-2 border-amber-300 p-6 chaos-shadow">
-      <p class="text-lg font-hand font-bold text-amber-700 mb-2">Supabase fehlt noch!</p>
-      <p class="text-gray-700">Trage <code>SUPABASE_URL</code> und <code>SUPABASE_ANON_KEY</code> in <code>config.js</code> ein (siehe instructions.md), dann kannst du Einträge laden und schreiben.</p>
+      <p class="text-lg font-hand font-bold text-amber-700 mb-2">Das Chaos-Funkgerät schnarcht!</p>
+      <p class="text-gray-700">Gerade gibt es keinen Kontakt zur Schweini-Cloud. Versuch es später noch einmal oder weck das Funkgerät auf.</p>
     </div>
   `;
   lucideRefresh();
@@ -123,7 +126,7 @@ function renderFeed(entries) {
     feedContainer.innerHTML = `
       <div class="bg-white rounded-2xl border-2 border-dashed border-teal-200 p-6 text-center">
         <p class="text-lg font-hand text-teal-700 font-bold">Noch nichts passiert 🙈</p>
-        <p class="text-gray-600">Lege deinen ersten Eintrag oben an.</p>
+        <p class="text-gray-600">Frag Schweini, wann die nächsten Abenteuer eintreffen.</p>
       </div>
     `;
     lucideRefresh();
@@ -138,6 +141,7 @@ function renderEntry(entry) {
   const emojiOptions = ['🐷', '🤣', '🤦‍♀️', '💩'];
   const counts = (emoji) => entry.reactions?.[`${entry.id}-${emoji}`] || 0;
   const images = Array.isArray(entry.images) ? entry.images.filter(Boolean) : [];
+  const bodyHtml = marked.parse(entry.body || '');
 
   return `
     <article class="bg-white rounded-2xl chaos-shadow border-2 border-teal-500 overflow-hidden relative" id="post-${entry.id}">
@@ -152,7 +156,7 @@ function renderEntry(entry) {
           <span>${entry.author || 'Schweini'}</span>
         </div>
         <h3 class="text-2xl font-hand font-bold text-gray-800 mb-3 leading-tight">${entry.title || 'Ohne Titel'}</h3>
-        <p class="text-gray-600 leading-relaxed whitespace-pre-line text-[1.05rem]">${entry.body || ''}</p>
+        <div class="prose prose-teal max-w-none text-gray-700 leading-relaxed text-[1.05rem]">${bodyHtml}</div>
       </div>
       ${renderImages(images)}
       <div class="bg-gray-50 p-4 border-t-2 border-teal-100">
@@ -259,45 +263,6 @@ async function handleReaction(entryId, emoji, btn) {
   setTimeout(() => btn.classList.remove('bg-teal-50', 'border-teal-400'), 200);
 }
 
-function parseImages(raw) {
-  return raw
-    .split('\n')
-    .map((line) => line.trim())
-    .filter(Boolean);
-}
-
-async function handleEntryCreate(event) {
-  event.preventDefault();
-  const form = event.target;
-  const formData = new FormData(form);
-  const payload = {
-    title: formData.get('title') || '',
-    mood: formData.get('mood') || '',
-    date_label: formData.get('date_label') || null,
-    author: formData.get('author') || 'Schweini',
-    body: formData.get('body') || '',
-    images: parseImages(formData.get('images') || '')
-  };
-
-  const { data, error } = await supabaseClient
-    .from('entries')
-    .insert(payload)
-    .select()
-    .single();
-
-  if (error) {
-    alert('Eintrag konnte nicht gespeichert werden: ' + error.message);
-    return;
-  }
-
-  entriesState = [
-    { ...data, comments: [], reactions: {} },
-    ...entriesState
-  ];
-  renderFeed(entriesState);
-  form.reset();
-}
-
 function openLightbox(src) {
   lightboxImg.src = src;
   lightbox.classList.remove('hidden');
@@ -308,8 +273,6 @@ function openLightbox(src) {
 }
 
 function registerEventListeners() {
-  document.getElementById('entry-form')?.addEventListener('submit', handleEntryCreate);
-
   feedContainer.addEventListener('submit', (event) => {
     if (event.target.matches('.comment-form')) {
       event.preventDefault();

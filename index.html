@@ -32,6 +32,9 @@
     .chaos-shadow { box-shadow: 4px 4px 0px 0px rgba(20, 184, 166, 0.4); transition: all 0.2s; }
     .tape { background-color: rgba(253, 224, 71, 0.8); box-shadow: 0 1px 3px rgba(0,0,0,0.1); backdrop-filter: blur(2px); }
     .modal-enter { animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .prose p { margin-bottom: 0.75rem; }
+    .prose ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    .prose strong { color: #115e59; }
     @keyframes modalPop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
   </style>
 </head>
@@ -42,11 +45,10 @@
         <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center text-xl border-2 border-teal-500 transform -rotate-6 shadow-sm">🐷</div>
         <div>
           <h1 class="text-2xl text-teal-600 tracking-wide font-hand font-bold mt-1">Chaos Logbuch</h1>
-          <p class="text-xs text-gray-500 -mt-1">Supabase & Vercel ready</p>
+          <p class="text-xs text-gray-500 -mt-1">Verrückte Schweini-Geschichten</p>
         </div>
       </div>
       <div class="flex items-center gap-2 text-sm">
-        <a class="flex items-center gap-2 bg-teal-50 text-teal-700 border border-teal-200 px-3 py-1 rounded-full" href="#instructions-hint">Setup-Hilfe</a>
         <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="bg-teal-50 p-2 rounded-full text-teal-500 hover:bg-teal-100 transition border border-teal-200">
           <i data-lucide="arrow-up" class="w-5 h-5"></i>
         </button>
@@ -59,14 +61,14 @@
       <div class="absolute -top-3 -left-6 w-32 h-8 tape transform -rotate-12"></div>
       <div class="absolute -bottom-3 -right-8 w-32 h-8 tape transform -rotate-12"></div>
       <div class="flex flex-col md:flex-row gap-6 md:items-center">
-        <div class="w-28 h-28 rounded-full bg-teal-100 border-4 border-teal-300 p-1 relative transform rotate-2 shadow-lg mx-auto md:mx-0">
-          <img src="https://images.unsplash.com/photo-1596700096996-2580556ce650?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover rounded-full grayscale contrast-125" alt="Profilbild Schweini" />
+        <a href="public/images/profile.png" target="_blank" rel="noreferrer" class="w-28 h-28 rounded-full bg-teal-100 border-4 border-teal-300 p-1 relative transform rotate-2 shadow-lg mx-auto md:mx-0 block hover:shadow-xl transition">
+          <img src="public/images/profile.png" class="w-full h-full object-cover rounded-full grayscale contrast-125" alt="Profilbild Schweini" />
           <div class="absolute bottom-0 right-0 bg-white rounded-full p-1 border-2 border-teal-200 text-lg">🏴‍☠️</div>
-        </div>
+        </a>
         <div class="space-y-2 text-center md:text-left">
-          <h2 class="text-3xl font-hand text-teal-700 font-bold">Hallo Elisa, das Logbuch ist online!</h2>
-          <p class="text-gray-600 leading-relaxed">Neue Einträge, Kommentare und Reaktionen landen jetzt direkt in Supabase. Kopiere die <span class="font-semibold">config.js</span> mit deinen Supabase-Daten, deploye auf Vercel – fertig.</p>
-          <p id="config-warning" class="text-sm text-red-600 font-semibold hidden">Fehlende Supabase-Konfiguration. Bitte <code>config.js</code> anpassen.</p>
+          <h2 class="text-3xl font-hand text-teal-700 font-bold">Hallo Elisa, das verrückte Schweini-Logbuch ist da!</h2>
+          <p class="text-gray-600 leading-relaxed">Hier sammeln sich alle chaotischen Abenteuer, Bilder und Kommentare. Schnapp dir das Profilbild, pinne es in dein Zimmer und stöbere durch die Geschichten.</p>
+          <p id="config-warning" class="text-sm text-red-600 font-semibold hidden">Das Chaos-Funkgerät schläft gerade. Versuch es später noch einmal.</p>
           <div class="flex flex-wrap gap-2 text-sm font-bold font-hand">
             <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full border border-yellow-400 transform -rotate-2">Chaos-Level: 9000 ⚡</span>
             <span class="bg-teal-50 text-teal-700 px-3 py-1 rounded-full border border-teal-200 transform rotate-1">Direkt vernetztes Tagebuch</span>
@@ -75,66 +77,12 @@
       </div>
     </section>
 
-    <section class="bg-white rounded-2xl p-6 chaos-shadow border-2 border-teal-500 space-y-4" id="create-card">
-      <div class="flex items-center justify-between">
-        <h3 class="text-2xl font-hand font-bold text-teal-700">Neuer Eintrag</h3>
-        <div class="flex items-center gap-2 text-sm text-gray-500">
-          <i data-lucide="sparkles" class="w-4 h-4"></i>
-          <span>direkt in Supabase gespeichert</span>
-        </div>
-      </div>
-      <form id="entry-form" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="space-y-2">
-          <label class="text-sm font-semibold text-gray-600">Titel</label>
-          <input name="title" required placeholder="Was ist passiert?" class="w-full bg-white border-2 border-teal-200 rounded-xl px-4 py-3 focus:outline-none focus:border-teal-500" />
-        </div>
-        <div class="space-y-2">
-          <label class="text-sm font-semibold text-gray-600">Stimmung</label>
-          <input name="mood" required placeholder="z.B. Wild 🤠" class="w-full bg-white border-2 border-teal-200 rounded-xl px-4 py-3 focus:outline-none focus:border-teal-500" />
-        </div>
-        <div class="space-y-2">
-          <label class="text-sm font-semibold text-gray-600">Label / Datum (optional)</label>
-          <input name="date_label" placeholder="Heute, 08:30 Uhr" class="w-full bg-white border-2 border-teal-200 rounded-xl px-4 py-3 focus:outline-none focus:border-teal-500" />
-        </div>
-        <div class="space-y-2">
-          <label class="text-sm font-semibold text-gray-600">Wer schreibt?</label>
-          <select name="author" class="w-full bg-white border-2 border-teal-200 rounded-xl px-4 py-3 focus:outline-none focus:border-teal-500">
-            <option>Schweini</option>
-            <option>Elisa</option>
-            <option>Mama</option>
-            <option>Papa</option>
-            <option>Oma</option>
-            <option>Opa</option>
-            <option>Wonkel</option>
-          </select>
-        </div>
-        <div class="md:col-span-2 space-y-2">
-          <label class="text-sm font-semibold text-gray-600">Erzählung</label>
-          <textarea name="body" required rows="4" placeholder="Schreib alles auf..." class="w-full bg-white border-2 border-teal-200 rounded-xl px-4 py-3 focus:outline-none focus:border-teal-500"></textarea>
-        </div>
-        <div class="md:col-span-2 space-y-2">
-          <label class="text-sm font-semibold text-gray-600">Bild-Links (ein Link pro Zeile)</label>
-          <textarea name="images" rows="2" placeholder="https://.../bild1.jpg" class="w-full bg-white border-2 border-teal-200 rounded-xl px-4 py-3 focus:outline-none focus:border-teal-500"></textarea>
-          <p class="text-xs text-gray-500">Du kannst Dateien im Repo unter <code>/public</code> ablegen und hier den Vercel-Link nutzen (siehe instructions.md).</p>
-        </div>
-        <div class="md:col-span-2 flex justify-end gap-3">
-          <button type="reset" class="px-4 py-2 rounded-xl border-2 border-gray-200 text-gray-600 hover:bg-gray-50 btn-press">Zurücksetzen</button>
-          <button type="submit" class="px-5 py-2 rounded-xl bg-teal-500 text-white font-semibold shadow-sm border-2 border-teal-600 hover:bg-teal-600 btn-press">Eintrag speichern</button>
-        </div>
-      </form>
-    </section>
-
     <section id="feed-section" class="space-y-6">
       <div class="flex items-center gap-2 text-gray-600">
         <i data-lucide="album" class="w-4 h-4"></i>
-        <p class="text-sm">Alle Einträge aus Supabase</p>
+        <p class="text-sm">Alle Einträge aus Schweinis Tagebuch</p>
       </div>
       <div id="feed-container" class="space-y-10"></div>
-    </section>
-
-    <section id="instructions-hint" class="bg-white rounded-2xl p-6 border-2 border-dashed border-teal-300 text-gray-600">
-      <h4 class="text-xl font-hand font-bold text-teal-700 mb-2">Deployment-Hinweis</h4>
-      <p class="leading-relaxed">Die ausführliche Supabase- und Vercel-Anleitung steht in <code>instructions.md</code>. Kurzfassung: config.js mit deinen Keys füllen, vercel deployen, fertig.</p>
     </section>
   </main>
 
