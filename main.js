@@ -11,6 +11,8 @@ const lightboxImg = document.getElementById('lightbox-img');
 
 const identities = [
   { name: 'Elisa', emoji: '👱‍♀️', color: 'bg-teal-50 border-teal-200 text-teal-800' },
+  { name: 'Sonni', emoji: '👧', color: 'bg-amber-50 border-amber-200 text-amber-800' },
+  { name: 'Flori', emoji: '👦', color: 'bg-orange-50 border-orange-200 text-orange-800' },
   { name: 'Mama', emoji: '👩', color: 'bg-pink-50 border-pink-200 text-pink-700' },
   { name: 'Papa', emoji: '🧔', color: 'bg-blue-50 border-blue-200 text-blue-700' },
   { name: 'Oma', emoji: '👵', color: 'bg-purple-50 border-purple-200 text-purple-700' },
@@ -205,6 +207,8 @@ function renderCommentHtml(name, text) {
   let nameColor = 'text-teal-600';
   if (name === 'Mama') { borderClass = 'border-pink-300'; bgDot = 'bg-pink-500'; nameColor = 'text-pink-600'; }
   if (name === 'Papa') { borderClass = 'border-blue-300'; bgDot = 'bg-blue-500'; nameColor = 'text-blue-600'; }
+  if (name === 'Sonni') { borderClass = 'border-amber-300'; bgDot = 'bg-amber-500'; nameColor = 'text-amber-700'; }
+  if (name === 'Flori') { borderClass = 'border-orange-300'; bgDot = 'bg-orange-500'; nameColor = 'text-orange-700'; }
   if (name === 'Wonkel') { borderClass = 'border-yellow-300'; bgDot = 'bg-yellow-500'; nameColor = 'text-yellow-700'; }
   if (name?.startsWith('O')) { borderClass = 'border-purple-300'; bgDot = 'bg-purple-500'; nameColor = 'text-purple-600'; }
   return `
