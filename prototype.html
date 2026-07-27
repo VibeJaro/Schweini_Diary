@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schweinis Welt</title>
+  <script>
+    const route = location.hash && location.hash !== "#start" ? location.hash : "#/";
+    location.replace(`./index.html${route}`);
+  </script>
+</head>
+<body>
+  <p><a href="./index.html#/">Weiter zu Schweinis Welt</a></p>
+</body>
+</html>

@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate-config": "node scripts/generate-config.js"
+    "build": "node scripts/build-site.js",
+    "generate-config": "node scripts/generate-config.js",
+    "textlabor": "node scripts/schweini-textlabor.js"
   }
 }

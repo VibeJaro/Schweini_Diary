@@ -1,108 +1,171 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Schweinis Chaos-Logbuch 🐷⚡</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    :root {
-      --font-hand: 'Gochi Hand', cursive;
-      --color-primary: #14b8a6;
-      --color-bg: #f0fdfa;
-      --color-accent: #ccfbf1;
-    }
-
-    body {
-      font-family: ui-sans-serif, system-ui, sans-serif;
-      background-color: var(--color-bg);
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    h1, h2, h3, .font-hand {
-      font-family: var(--font-hand);
-    }
-
-    .hide-scrollbar::-webkit-scrollbar { display: none; }
-    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .photo-card:active { transform: scale(0.98); }
-    .btn-press:active { transform: scale(0.95); }
-    .chaos-shadow { box-shadow: 4px 4px 0px 0px rgba(20, 184, 166, 0.4); transition: all 0.2s; }
-    .tape { background-color: rgba(253, 224, 71, 0.8); box-shadow: 0 1px 3px rgba(0,0,0,0.1); backdrop-filter: blur(2px); }
-    .modal-enter { animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-    .prose p { margin-bottom: 0.75rem; }
-    .prose ul { list-style: disc; padding-left: 1.25rem; margin-bottom: 0.75rem; }
-    .prose strong { color: #115e59; }
-    @keyframes modalPop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6efe4">
+  <meta name="description" content="Schweinis offizielle Welt: Tagebuch, Familien-Funk, Quatschladen und Spiele.">
+  <meta name="color-scheme" content="light">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Schweinis Welt">
+  <meta property="og:description" content="Genie. Chaos. Sahnetorte. Das Tagebuch eines sehr besonderen Schweins.">
+  <meta property="og:image" content="/public/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Schweinis Welt">
+  <meta name="twitter:description" content="Genie. Chaos. Sahnetorte. Das Tagebuch eines sehr besonderen Schweins.">
+  <meta name="twitter:image" content="/public/og.png">
+  <title>Schweinis Welt — Genie. Chaos. Sahnetorte.</title>
+  <link rel="preload" as="image" href="public/images/10_1.webp" type="image/webp">
+  <link rel="stylesheet" href="site.css">
 </head>
-<body class="text-gray-700 selection:bg-teal-200">
-  <header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b-2 border-teal-100">
-    <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center text-xl border-2 border-teal-500 transform -rotate-6 shadow-sm">🐷</div>
-        <div>
-          <h1 class="text-2xl text-teal-600 tracking-wide font-hand font-bold mt-1">Chaos Logbuch</h1>
-          <p class="text-xs text-gray-500 -mt-1">Verrückte Schweini-Geschichten</p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2 text-sm">
-        <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="bg-teal-50 p-2 rounded-full text-teal-500 hover:bg-teal-100 transition border border-teal-200">
-          <i data-lucide="arrow-up" class="w-5 h-5"></i>
-        </button>
-      </div>
+<body class="intro-lock">
+  <a class="skip-link" href="#app">Direkt zum Inhalt</a>
+
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro__curtain intro__curtain--red"></div>
+    <div class="intro__curtain intro__curtain--blue"></div>
+    <div class="intro__grid"></div>
+    <div class="intro__copy">
+      <span class="intro__kicker">Achtung,</span>
+      <strong aria-label="Schweini">
+        <span>S</span><span>C</span><span>H</span><span>W</span><span>E</span><span>I</span><span>N</span><span>I</span>
+      </strong>
+      <em>hat das Internet übernommen.</em>
+    </div>
+    <div class="intro__signature">Genie. Chaos. Sahnetorte.</div>
+    <div class="intro__flash"></div>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#/" aria-label="Schweinis Welt – Startseite">
+      <span class="brand__stamp" aria-hidden="true">SW</span>
+      <span class="brand__copy">
+        <strong>Schweinis Welt</strong>
+        <small>Genie. Chaos. Sahnetorte.</small>
+      </span>
+    </a>
+    <div class="header-actions">
+      <button class="header-icon" id="intro-replay" type="button" aria-label="Intro noch einmal abspielen">↻</button>
+      <button class="header-icon menu-toggle" type="button" aria-controls="menu-sheet" aria-expanded="false" aria-label="Menü öffnen">☰</button>
     </div>
   </header>
 
-  <main class="max-w-4xl mx-auto pt-24 pb-16 px-4 space-y-10">
-    <section class="bg-white rounded-2xl p-6 chaos-shadow border-2 border-teal-500 relative overflow-visible mt-2">
-      <div class="absolute -top-3 -left-6 w-32 h-8 tape transform -rotate-12"></div>
-      <div class="absolute -bottom-3 -right-8 w-32 h-8 tape transform -rotate-12"></div>
-      <div class="flex flex-col md:flex-row gap-6 md:items-center">
-        <a href="public/images/profile.png" target="_blank" rel="noreferrer" class="w-28 h-28 rounded-full bg-teal-100 border-4 border-teal-300 p-1 relative transform rotate-2 shadow-lg mx-auto md:mx-0 block hover:shadow-xl transition">
-          <img src="public/images/profile.png" class="w-full h-full object-cover rounded-full grayscale contrast-125" alt="Profilbild Schweini" />
-          <div class="absolute bottom-0 right-0 bg-white rounded-full p-1 border-2 border-teal-200 text-lg">🏴‍☠️</div>
-        </a>
-        <div class="space-y-2 text-center md:text-left">
-          <h2 class="text-3xl font-hand text-teal-700 font-bold">Achtung Elisa!</h2>
-          <p class="text-gray-600 leading-relaxed">Alles, was in diesem Tagebuch steht, ist wirklich passiert. Oder fast. Oder so ähnlich...</p>
-          <p id="config-warning" class="text-sm text-red-600 font-semibold hidden">Das Chaos-Funkgerät schläft gerade. Versuch es später noch einmal.</p>
-          <div class="flex flex-wrap gap-2 text-sm font-bold font-hand">
-            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full border border-yellow-400 transform -rotate-2">Chaos-Level: 9000 ⚡</span>
-            <span class="bg-teal-50 text-teal-700 px-3 py-1 rounded-full border border-teal-200 transform rotate-1">Social Schweinemedia</span>
-          </div>
-        </div>
+  <aside class="menu-sheet" id="menu-sheet" aria-hidden="true">
+    <button class="menu-sheet__backdrop" type="button" data-close-menu aria-label="Menü schließen"></button>
+    <nav class="menu-sheet__panel" aria-label="Hauptnavigation">
+      <div class="menu-sheet__top">
+        <span>Schweinis Kommandozentrale</span>
+        <button type="button" data-close-menu aria-label="Menü schließen">×</button>
       </div>
-    </section>
+      <a href="#/">Startseite <span>01</span></a>
+      <a href="#/tagebuch">Tagebuch <span>02</span></a>
+      <a href="#/schweini">Das Schwein <span>03</span></a>
+      <a href="#/laden">Quatschladen <span>04</span></a>
+      <a href="#/spielplatz">Spielplatz <span>05</span></a>
+      <button class="menu-sheet__post open-post-dialog" type="button">+ Etwas posten</button>
+      <p>Von Schweini. Über Schweini.<br>Zu Ehren von Schweini.</p>
+    </nav>
+  </aside>
 
-    <section id="feed-section" class="space-y-6">
-      <div class="flex items-center gap-2 text-gray-600">
-        <i data-lucide="album" class="w-4 h-4"></i>
-        <p class="text-sm">Alle Einträge aus Schweinis Tagebuch</p>
-      </div>
-      <div id="feed-container" class="space-y-10"></div>
-    </section>
-  </main>
-
-  <div id="identity-modal" class="fixed inset-0 bg-teal-900/40 z-[80] hidden flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-white w-full max-w-sm rounded-3xl p-6 chaos-shadow border-2 border-teal-500 relative modal-enter">
-      <button onclick="document.getElementById('identity-modal').classList.add('hidden')" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 p-2">
-        <i data-lucide="x" class="w-6 h-6"></i>
-      </button>
-      <h3 class="text-2xl font-hand font-bold text-center text-teal-700 mb-6 mt-2">Wer schreibt da? ✏️</h3>
-      <div class="grid grid-cols-2 gap-3" id="identity-choices"></div>
+  <div class="news-ticker" aria-label="Aktuelle Meldung">
+    <span class="news-ticker__label">Eilmeldung</span>
+    <div class="news-ticker__viewport">
+      <span>9 Abenteuer · 83 Fotos · Chaos-Level 9000 · Schweini fordert mehr Kuchen ·</span>
     </div>
   </div>
 
-  <div id="lightbox" class="fixed inset-0 bg-teal-900/95 z-[100] hidden flex items-center justify-center p-4 backdrop-blur-sm" onclick="document.getElementById('lightbox').classList.add('hidden')">
-    <img id="lightbox-img" src="" class="max-w-full max-h-[80vh] rounded-lg shadow-2xl transition-transform duration-300 transform scale-95 opacity-0 border-4 border-white rotate-1" />
-    <button class="absolute top-6 right-6 text-white bg-white/20 p-3 rounded-full hover:bg-white/30 backdrop-blur-md transition">
-      <i data-lucide="x" class="w-8 h-8"></i>
-    </button>
-  </div>
+  <main id="app" tabindex="-1">
+    <div class="route-loader" aria-live="polite">
+      <span>Schweini sortiert sein Genie …</span>
+    </div>
+  </main>
 
-  <script type="module" src="./main.js"></script>
+  <nav class="bottom-nav" aria-label="Schnellnavigation">
+    <a class="bottom-nav__item" href="#/" data-nav-route="/">
+      <span aria-hidden="true">⌂</span><small>Start</small>
+    </a>
+    <a class="bottom-nav__item" href="#/tagebuch" data-nav-route="/tagebuch">
+      <span aria-hidden="true">▤</span><small>Tagebuch</small>
+    </a>
+    <button class="bottom-nav__post open-post-dialog" type="button" aria-label="Neuen Familienbeitrag erstellen">+</button>
+    <a class="bottom-nav__item" href="#/laden" data-nav-route="/laden">
+      <span aria-hidden="true">◇</span><small>Laden</small>
+    </a>
+    <a class="bottom-nav__item" href="#/spielplatz" data-nav-route="/spielplatz">
+      <span aria-hidden="true">♠</span><small>Spielen</small>
+    </a>
+  </nav>
+
+  <dialog class="sheet-dialog" id="post-dialog">
+    <form class="sheet-dialog__surface" id="family-post-form">
+      <div class="sheet-dialog__handle"></div>
+      <header class="sheet-dialog__header">
+        <div>
+          <span>Familien-Funk</span>
+          <h2>Neues Abenteuer</h2>
+        </div>
+        <button class="dialog-close" type="button" data-close-dialog aria-label="Schließen">×</button>
+      </header>
+
+      <p class="form-intro">Hier darf die ganze Familie funken. Im ersten Entwurf wird dein Beitrag als Vorschau vorgemerkt.</p>
+
+      <div class="form-grid">
+        <label>
+          <span>Wer funkt dazwischen?</span>
+          <select name="author" required>
+            <option value="">Bitte auswählen</option>
+            <option>Elisa</option>
+            <option>Sonni</option>
+            <option>Flori</option>
+            <option>Mama</option>
+            <option>Papa</option>
+            <option>Oma</option>
+            <option>Opa</option>
+            <option>Wonkel</option>
+            <option>Schweini</option>
+          </select>
+        </label>
+        <label>
+          <span>Geheimer Familiencode</span>
+          <input type="password" name="familyCode" inputmode="numeric" autocomplete="off" placeholder="••••" required>
+        </label>
+      </div>
+
+      <label class="form-field">
+        <span>Was ist passiert?</span>
+        <input type="text" name="title" maxlength="90" placeholder="Schweini geht töpfern …" required>
+      </label>
+
+      <label class="form-field">
+        <span>Die ganze Geschichte</span>
+        <textarea name="body" rows="6" maxlength="5000" placeholder="Alle wichtigen Einzelheiten. Vor allem die peinlichen." required></textarea>
+      </label>
+
+      <label class="upload-field">
+        <input type="file" name="images" accept="image/*" multiple>
+        <span class="upload-field__icon">＋</span>
+        <span><strong>Fotos auswählen</strong><small>Bis zu 6 Schweini-Beweise</small></span>
+      </label>
+      <div class="upload-preview" id="upload-preview"></div>
+
+      <button class="button button--red button--wide" type="submit">Ab in Schweinis Postfach →</button>
+      <small class="prototype-hint">Veröffentlichung und Bildspeicher schalten wir nach dem Entwurf gemeinsam frei.</small>
+    </form>
+  </dialog>
+
+  <dialog class="lightbox" id="lightbox">
+    <button class="lightbox__close" type="button" data-close-lightbox aria-label="Bild schließen">×</button>
+    <button class="lightbox__arrow lightbox__arrow--prev" type="button" data-lightbox-prev aria-label="Vorheriges Bild">←</button>
+    <figure>
+      <img id="lightbox-image" alt="Schweini in Aktion">
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+    <button class="lightbox__arrow lightbox__arrow--next" type="button" data-lightbox-next aria-label="Nächstes Bild">→</button>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="site.js"></script>
 </body>
 </html>
