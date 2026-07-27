@@ -533,56 +533,75 @@ a {
 .home-hero__grid {
   display: grid;
   gap: 34px;
+  min-width: 0;
   padding-top: 38px;
 }
 
+.hero-copy {
+  min-width: 0;
+}
+
 .hero-copy__meta {
+  position: relative;
+  z-index: 2;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
   margin-bottom: 18px;
+  padding-right: 4px;
 }
 
 .issue-number {
+  flex: 0 0 auto;
   font-family: var(--serif);
   font-size: .65rem;
   font-style: italic;
+  white-space: nowrap;
 }
 
 .hero-title {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(3.35rem, 16vw, 7.8rem);
-  line-height: .77;
-  letter-spacing: -.085em;
+  font-size: clamp(3rem, 15.4vw, 7.8rem);
+  line-height: .86;
+  letter-spacing: -.075em;
   text-transform: uppercase;
 }
 
 .hero-title span {
   display: block;
+  line-height: .86;
 }
 
 .hero-title__top {
+  margin-bottom: .18em;
   font-family: var(--serif);
   font-size: .34em;
   font-style: italic;
+  line-height: 1;
   letter-spacing: -.02em;
   text-transform: none;
 }
 
 .hero-title__red {
   color: var(--red);
+  line-height: .82;
 }
 
 .hero-title__script {
-  margin: .12em 0;
+  margin: .5em 0 .3em;
   font-family: var(--serif);
   font-size: .29em;
   font-style: italic;
+  line-height: 1.05;
   letter-spacing: 0;
   text-transform: none;
   transform: rotate(-2deg);
+}
+
+#hero-line-4 {
+  line-height: .86;
 }
 
 .hero-deck {
@@ -2662,7 +2681,10 @@ dialog::backdrop {
   .header-icon:first-child { display: none; }
   .intro__copy { padding-inline: 10px; }
   .intro__copy strong { font-size: 12.5vw; }
-  .hero-title { font-size: 3rem; }
+  .hero-title {
+    font-size: 2.9rem;
+    letter-spacing: -.065em;
+  }
   .hero-switch {
     grid-template-columns: 1fr;
   }

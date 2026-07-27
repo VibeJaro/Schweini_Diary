@@ -104,7 +104,7 @@ Film ab! Dein Superstar Schweini 🐷🎬🏆`,
     mood: "🚀 Auf zu den Sternen 🚀",
     date_label: "17.02.2026 · 18:00",
     author: "Schweini",
-    created_at: "2026-02-17T17:00:00+00:00",
+    created_at: "2026-02-17T16:52:58.874972+00:00",
     images: Array.from({ length: 10 }, (_, index) => `public/images/7_${index + 1}.png`),
     body: `Die Welt ist noch nicht bereit für meine avantgardistische Kunst. Also gehe ich dahin, wo mich jeder sehen kann: ganz nach oben.
 
@@ -124,7 +124,7 @@ Over and out, Major Schweini 🐷🚀🤢`,
     mood: "📸 Jetzt geht es los 📸",
     date_label: "16.02.2026 · 18:25",
     author: "Schweini",
-    created_at: "2026-02-16T17:25:00+00:00",
+    created_at: "2026-02-16T17:25:06.327977+00:00",
     images: Array.from({ length: 10 }, (_, index) => `public/images/6_${index + 1}.png`),
     body: `Heute habe ich beschlossen, dass die Welt endlich professionelle Fotos von mir braucht. Keine gewöhnlichen Bilder — Kunst.
 
@@ -138,7 +138,7 @@ Jetzt warte ich darauf, dass die Modelagenturen anrufen. Das Telefon ist auffäl
     mood: "🏋️ Sport-Schweini 🏋️",
     date_label: "15.02.2026 · 14:15",
     author: "Schweini",
-    created_at: "2026-02-15T13:15:00+00:00",
+    created_at: "2026-02-15T13:15:46.64997+00:00",
     images: Array.from({ length: 11 }, (_, index) => `public/images/4_${index + 1}.png`),
     body: `Kaum dreht man sich einmal um, ist die Familie unterwegs. Schon wieder alleine! Andere würden Trübsal blasen. Ich starte selbstverständlich ein gigantisches Fitnessprogramm.
 
@@ -152,7 +152,7 @@ Am Ende habe ich mich im Spiegel betrachtet und beschlossen: Man sieht die Muske
     mood: "🛀 Chillfaktor 1000 🛀",
     date_label: "05.01.2026",
     author: "Schweini",
-    created_at: "2026-01-05T18:00:00+00:00",
+    created_at: "2026-01-05T19:59:47.785929+00:00",
     images: Array.from({ length: 9 }, (_, index) => `public/images/3_${index + 1}.png`),
     body: `Nach all dem Sport hatte ich mir Wellness verdient. Ich verwandelte das Badezimmer in eine exklusive Schweini-Oase: Blubberblasen, Gurkenscheiben und absolute Ruhe.
 
@@ -166,7 +166,7 @@ Mein abschließendes Urteil: Fünf Sterne für den Service. Einen Stern Abzug, w
     mood: "🏙 Die Quadrate 🏙",
     date_label: "04.01.2026 · 20:18",
     author: "Schweini",
-    created_at: "2026-01-04T19:18:00+00:00",
+    created_at: "2026-01-04T21:16:43.462326+00:00",
     images: Array.from({ length: 10 }, (_, index) => `public/images/2_${index + 1}.png`),
     body: `Heute war ich in Mannheim. Eine Stadt aus Quadraten — endlich eine Stadtplanung, die auch ein Schwein versteht.
 
@@ -180,7 +180,7 @@ Mein Urteil: Mannheim darf bleiben. Vor allem wegen des Nachtischs.`,
     mood: "❄️ Supercool ❄️",
     date_label: "03.01.2026 · 22:13",
     author: "Schweini",
-    created_at: "2026-01-03T21:13:00+00:00",
+    created_at: "2026-01-04T07:33:59.139252+00:00",
     images: Array.from({ length: 6 }, (_, index) => `public/images/1_${index + 1}.png`),
     body: `Sturmfrei! Ein Wort wie Musik. Niemand sagt mir, wann Schlafenszeit ist oder wie viele Kekse ein vernünftiges Abendessen ergeben.
 
@@ -379,9 +379,18 @@ function imagePath(source) {
 }
 
 function entryDate(entry) {
-  if (entry.date_label) return entry.date_label.replace(" ", " · ");
   try {
-    return new Intl.DateTimeFormat("de-DE", { dateStyle: "medium" }).format(new Date(entry.created_at));
+    const parts = new Intl.DateTimeFormat("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Europe/Berlin",
+    }).formatToParts(new Date(entry.created_at));
+    const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+    return `${value.day}.${value.month}.${value.year} · ${value.hour}:${value.minute}`;
   } catch {
     return "Neulich";
   }
@@ -538,7 +547,13 @@ function formatRelativeDate(date) {
   const days = Math.floor(difference / 86400000);
   if (days <= 0) return "Heute";
   if (days === 1) return "Gestern";
-  return `vor ${days} Tagen`;
+  if (days < 7) return `vor ${days} Tagen`;
+  return new Intl.DateTimeFormat("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "Europe/Berlin",
+  }).format(new Date(date));
 }
 
 function renderHome() {
