@@ -5,7 +5,7 @@ Diese App nutzt nur statische Dateien (kein Build-Schritt) und kommuniziert dire
 ## 1) Supabase-Projekt vorbereiten
 1. Neues Projekt in Supabase anlegen.
 2. Den **Project URL** und den **anon public key** notieren.
-3. SQL-Editor öffnen und die Tabellen anlegen (RLS wird deaktiviert, damit der anonyme Key reicht):
+3. SQL-Editor öffnen und die Tabellen anlegen:
 
 ```sql
 -- Tabelle für die Tagebucheinträge
@@ -46,10 +46,6 @@ create table if not exists public.reactions (
   created_at timestamptz default now()
 );
 
--- RLS komplett aus, damit keine Policies nötig sind
-alter table public.entries disable row level security;
-alter table public.comments disable row level security;
-alter table public.reactions disable row level security;
 ```
 
 Bei einer bereits vorhandenen Datenbank stattdessen die idempotente Migration
@@ -58,7 +54,12 @@ ausführen. Sie ergänzt die Hero-Felder, prüft die zulässigen Textlängen und
 befüllt die bestehenden Geschichten mit ihren ausdrücklich gewählten
 Titelbildern.
 
-> Hinweis: Für ein echtes Produkt solltest du später RLS+Policies aktivieren. Für dieses Test-Tagebuch ist alles offen gelassen.
+Anschließend die Migration
+`supabase/migrations/20260727_rls_baseline.sql` ausführen. Sie aktiviert
+Row Level Security, erlaubt öffentliches Lesen sowie geprüfte neue Kommentare
+und Reaktionen. Änderungen oder Löschungen über den Browser-Key bleiben
+gesperrt. Redaktionelle Änderungen an Geschichten erfolgen im Supabase
+Dashboard mit einer administrativen Rolle.
 
 ### Beispiel-Daten einfügen
 ```sql
