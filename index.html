@@ -63,7 +63,6 @@
       <a href="#/schweini">Das Schwein <span>03</span></a>
       <a href="#/laden">Quatschladen <span>04</span></a>
       <a href="#/spielplatz">Spielplatz <span>05</span></a>
-      <button class="menu-sheet__post open-post-dialog" type="button">+ Etwas posten</button>
       <p>Von Schweini. Über Schweini.<br>Zu Ehren von Schweini.</p>
     </nav>
   </aside>
@@ -88,7 +87,6 @@
     <a class="bottom-nav__item" href="#/tagebuch" data-nav-route="/tagebuch">
       <span aria-hidden="true">▤</span><small>Tagebuch</small>
     </a>
-    <button class="bottom-nav__post open-post-dialog" type="button" aria-label="Neuen Familienbeitrag erstellen">+</button>
     <a class="bottom-nav__item" href="#/laden" data-nav-route="/laden">
       <span aria-hidden="true">◇</span><small>Laden</small>
     </a>
@@ -96,63 +94,6 @@
       <span aria-hidden="true">♠</span><small>Spielen</small>
     </a>
   </nav>
-
-  <dialog class="sheet-dialog" id="post-dialog">
-    <form class="sheet-dialog__surface" id="family-post-form">
-      <div class="sheet-dialog__handle"></div>
-      <header class="sheet-dialog__header">
-        <div>
-          <span>Familien-Funk</span>
-          <h2>Neues Abenteuer</h2>
-        </div>
-        <button class="dialog-close" type="button" data-close-dialog aria-label="Schließen">×</button>
-      </header>
-
-      <p class="form-intro">Hier darf die ganze Familie funken. Im ersten Entwurf wird dein Beitrag als Vorschau vorgemerkt.</p>
-
-      <div class="form-grid">
-        <label>
-          <span>Wer funkt dazwischen?</span>
-          <select name="author" required>
-            <option value="">Bitte auswählen</option>
-            <option>Elisa</option>
-            <option>Sonni</option>
-            <option>Flori</option>
-            <option>Mama</option>
-            <option>Papa</option>
-            <option>Oma</option>
-            <option>Opa</option>
-            <option>Wonkel</option>
-            <option>Schweini</option>
-          </select>
-        </label>
-        <label>
-          <span>Geheimer Familiencode</span>
-          <input type="password" name="familyCode" inputmode="numeric" autocomplete="off" placeholder="••••" required>
-        </label>
-      </div>
-
-      <label class="form-field">
-        <span>Was ist passiert?</span>
-        <input type="text" name="title" maxlength="90" placeholder="Schweini geht töpfern …" required>
-      </label>
-
-      <label class="form-field">
-        <span>Die ganze Geschichte</span>
-        <textarea name="body" rows="6" maxlength="5000" placeholder="Alle wichtigen Einzelheiten. Vor allem die peinlichen." required></textarea>
-      </label>
-
-      <label class="upload-field">
-        <input type="file" name="images" accept="image/*" multiple>
-        <span class="upload-field__icon">＋</span>
-        <span><strong>Fotos auswählen</strong><small>Bis zu 6 Schweini-Beweise</small></span>
-      </label>
-      <div class="upload-preview" id="upload-preview"></div>
-
-      <button class="button button--red button--wide" type="submit">Ab in Schweinis Postfach →</button>
-      <small class="prototype-hint">Veröffentlichung und Bildspeicher schalten wir nach dem Entwurf gemeinsam frei.</small>
-    </form>
-  </dialog>
 
   <dialog class="lightbox" id="lightbox">
     <button class="lightbox__close" type="button" data-close-lightbox aria-label="Bild schließen">×</button>

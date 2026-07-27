@@ -1077,6 +1077,7 @@ a {
   min-height: 210px;
   padding: 17px;
   color: var(--ink);
+  text-decoration: none;
   background: var(--yellow);
   border: 2px solid white;
   box-shadow: 5px 5px 0 var(--ink);
@@ -1141,51 +1142,6 @@ a {
   font-family: var(--display);
   font-size: .52rem;
   text-transform: uppercase;
-}
-
-.compose-card {
-  display: grid;
-  grid-template-columns: 46px 1fr 24px;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  margin-top: 26px;
-  padding: 12px;
-  color: var(--ink);
-  background: var(--paper-light);
-  border: 2px solid white;
-  box-shadow: 5px 5px 0 var(--pink);
-  text-align: left;
-  cursor: pointer;
-}
-
-.compose-card__plus {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  color: white;
-  background: var(--red);
-  border: 2px solid var(--ink);
-  font-family: var(--display);
-  font-size: 1.6rem;
-}
-
-.compose-card strong,
-.compose-card small {
-  display: block;
-}
-
-.compose-card strong {
-  font-family: var(--display);
-  font-size: .7rem;
-  text-transform: uppercase;
-}
-
-.compose-card small {
-  margin-top: 3px;
-  font-family: var(--serif);
-  font-size: .65rem;
 }
 
 /* Shop */
@@ -1547,13 +1503,6 @@ a {
   letter-spacing: -.08em;
 }
 
-.story-detail__lead {
-  font-family: var(--serif);
-  font-size: 1.12rem;
-  font-weight: 700;
-  line-height: 1.5;
-}
-
 .story-detail__hero {
   position: relative;
   border: 3px solid var(--ink);
@@ -1663,6 +1612,7 @@ a {
   padding: 20px 18px;
   color: white;
   background: var(--ink);
+  scroll-margin-top: 110px;
 }
 
 .comments-block h2 {
@@ -2193,19 +2143,6 @@ a {
   letter-spacing: 0;
 }
 
-.menu-sheet__post {
-  min-height: 50px;
-  margin-top: 24px;
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  background: var(--pink);
-  box-shadow: 4px 4px 0 var(--ink);
-  font-family: var(--display);
-  font-size: .68rem;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
 .menu-sheet__panel > p {
   margin-top: auto;
   font-family: var(--serif);
@@ -2220,7 +2157,7 @@ a {
   bottom: 0;
   left: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr) 58px repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   align-items: end;
   height: calc(var(--nav-height) + env(safe-area-inset-bottom));
   padding: 7px 8px calc(6px + env(safe-area-inset-bottom));
@@ -2254,23 +2191,6 @@ a {
   color: var(--red);
 }
 
-.bottom-nav__post {
-  align-self: start;
-  display: grid;
-  place-items: center;
-  width: 58px;
-  height: 58px;
-  margin-top: -20px;
-  color: white;
-  background: var(--red);
-  border: var(--line);
-  border-radius: 50%;
-  box-shadow: 4px 4px 0 var(--ink);
-  font-family: var(--display);
-  font-size: 2rem;
-  cursor: pointer;
-}
-
 /* Dialogs */
 dialog {
   max-width: none;
@@ -2282,192 +2202,6 @@ dialog {
 dialog::backdrop {
   background: rgba(17,17,17,.76);
   backdrop-filter: blur(4px);
-}
-
-.sheet-dialog {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-
-.sheet-dialog[open] {
-  display: flex;
-  align-items: flex-end;
-}
-
-.sheet-dialog__surface {
-  width: 100%;
-  max-height: 94dvh;
-  padding: 10px 18px calc(22px + env(safe-area-inset-bottom));
-  border-top: 3px solid var(--ink);
-  background:
-    linear-gradient(90deg, rgba(17,17,17,.04) 1px, transparent 1px) 0 0 / 28px 28px,
-    var(--paper);
-  overflow-y: auto;
-  animation: sheet-in 260ms cubic-bezier(.2,.7,.2,1);
-}
-
-@keyframes sheet-in {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
-.sheet-dialog__handle {
-  width: 48px;
-  height: 5px;
-  margin: 0 auto 12px;
-  background: var(--ink);
-}
-
-.sheet-dialog__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 18px;
-}
-
-.sheet-dialog__header span,
-.form-field > span,
-.form-grid label > span {
-  font-family: var(--display);
-  font-size: .58rem;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-}
-
-.sheet-dialog__header h2 {
-  margin: 5px 0 0;
-  font-family: var(--display);
-  font-size: 2rem;
-  line-height: .95;
-  letter-spacing: -.05em;
-  text-transform: uppercase;
-}
-
-.dialog-close {
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-  width: 44px;
-  height: 44px;
-  border: var(--line);
-  background: var(--paper-light);
-  font-size: 1.8rem;
-  cursor: pointer;
-}
-
-.form-intro {
-  margin: 18px 0 22px;
-  font-family: var(--serif);
-  font-size: .9rem;
-  line-height: 1.4;
-}
-
-.form-grid,
-.form-field {
-  display: grid;
-  gap: 8px;
-}
-
-.form-grid {
-  margin-bottom: 15px;
-}
-
-.form-grid label,
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-field {
-  margin-bottom: 15px;
-}
-
-.form-grid input,
-.form-grid select,
-.form-field input,
-.form-field textarea {
-  width: 100%;
-  min-height: 48px;
-  padding: 11px 12px;
-  border: var(--line);
-  border-radius: 0;
-  background: var(--paper-light);
-}
-
-.form-field textarea {
-  min-height: 130px;
-  font-family: var(--serif);
-  resize: vertical;
-}
-
-.upload-field {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 76px;
-  margin: 4px 0 15px;
-  padding: 10px;
-  border: 2px dashed var(--ink);
-  background: var(--paper-light);
-  cursor: pointer;
-}
-
-.upload-field input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-
-.upload-field__icon {
-  display: grid;
-  place-items: center;
-  width: 50px;
-  height: 50px;
-  color: white;
-  background: var(--blue);
-  border: 2px solid var(--ink);
-  font-size: 1.5rem;
-}
-
-.upload-field strong,
-.upload-field small {
-  display: block;
-}
-
-.upload-field strong {
-  font-family: var(--display);
-  font-size: .66rem;
-  text-transform: uppercase;
-}
-
-.upload-field small {
-  margin-top: 4px;
-  font-family: var(--serif);
-  font-size: .65rem;
-}
-
-.upload-preview {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 7px;
-  margin-bottom: 15px;
-}
-
-.upload-preview img {
-  width: 100%;
-  aspect-ratio: 1;
-  border: 1.5px solid var(--ink);
-  object-fit: cover;
-}
-
-.prototype-hint {
-  display: block;
-  margin-top: 12px;
-  font-size: .58rem;
-  text-align: center;
 }
 
 .lightbox {
@@ -2631,17 +2365,9 @@ dialog::backdrop {
   .comment-form {
     grid-template-columns: 150px 1fr auto;
   }
-  .form-grid {
-    grid-template-columns: 1fr 1fr;
-  }
   .games-grid {
     grid-template-columns: 1.1fr .9fr;
     align-items: start;
-  }
-  .sheet-dialog__surface {
-    max-width: 680px;
-    margin-inline: auto;
-    border-inline: 3px solid var(--ink);
   }
 }
 

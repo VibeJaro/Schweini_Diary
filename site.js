@@ -4,9 +4,6 @@ const app = document.querySelector("#app");
 const toast = document.querySelector("#toast");
 const menuSheet = document.querySelector("#menu-sheet");
 const menuToggle = document.querySelector(".menu-toggle");
-const postDialog = document.querySelector("#post-dialog");
-const postForm = document.querySelector("#family-post-form");
-const uploadPreview = document.querySelector("#upload-preview");
 const lightbox = document.querySelector("#lightbox");
 const lightboxImage = document.querySelector("#lightbox-image");
 const lightboxCaption = document.querySelector("#lightbox-caption");
@@ -427,6 +424,10 @@ function entryLink(entry) {
   return `#/geschichte/${encodeURIComponent(entry.id)}`;
 }
 
+function entryCommentsLink(entry) {
+  return `${entryLink(entry)}?fokus=kommentare`;
+}
+
 function getEntry(entryId) {
   return state.entries.find((entry) => String(entry.id) === String(entryId));
 }
@@ -461,7 +462,7 @@ function renderFooter() {
         <div>
           <span>Bis zum nächsten Meisterwerk</span>
           <h2>Schweini hat noch sehr viel vor.</h2>
-          <button class="button button--yellow open-post-dialog" type="button">Etwas beitragen →</button>
+          <a class="button button--yellow" href="#/tagebuch">Abenteuer entdecken →</a>
         </div>
       </div>
     </section>
@@ -525,7 +526,7 @@ function renderCommentsRail() {
         .map((comment) => {
           const entry = getEntry(comment.entry_id);
           return `
-            <article class="comment-card">
+            <a class="comment-card" href="${entry ? entryCommentsLink(entry) : "#/tagebuch"}">
               <header>
                 <span class="avatar">${identities[comment.author] || escapeHtml(String(comment.author || "?").slice(0, 1))}</span>
                 <div>
@@ -535,7 +536,7 @@ function renderCommentsRail() {
               </header>
               <p>„${escapeHtml(comment.body)}“</p>
               <time>${escapeHtml(formatRelativeDate(comment.created_at))}</time>
-            </article>`;
+            </a>`;
         })
         .join("")}
     </div>`;
@@ -579,7 +580,7 @@ function renderHome() {
             <p class="hero-deck" id="hero-deck">${escapeHtml(slide.deck)}</p>
             <div class="hero-actions">
               <a class="button button--red" id="hero-link" href="#/geschichte/${encodeURIComponent(slide.entryId)}">Abenteuer lesen →</a>
-              <button class="button button--paper open-post-dialog" type="button">Senf dazugeben</button>
+              <a class="button button--paper" id="hero-comment-link" href="#/geschichte/${encodeURIComponent(slide.entryId)}?fokus=kommentare">Senf dazugeben</a>
             </div>
           </div>
 
@@ -653,11 +654,6 @@ function renderHome() {
             <p>Kein Login, keine Fremden, nur wohlmeinende Zwischenrufe und gelegentliche Nachfragen zu verschwundenem Kuchen.</p>
           </div>
           ${renderCommentsRail()}
-          <button class="compose-card open-post-dialog" type="button">
-            <span class="compose-card__plus">+</span>
-            <span><strong>Direkter Draht zum Schwein</strong><small>Geschichte, Foto oder Senf beisteuern</small></span>
-            <span>→</span>
-          </button>
         </div>
       </section>
 
@@ -768,7 +764,6 @@ function renderStory(entryId) {
 
   const comments = commentsFor(entry.id);
   const images = entry.images?.length ? entry.images.map(imagePath) : ["public/images/profile.webp"];
-  const firstParagraph = plainExcerpt(entry.body, 230);
 
   return `
     <div class="route story-detail">
@@ -782,7 +777,6 @@ function renderStory(entryId) {
           <a class="back-link" href="#/tagebuch">← Zurück zum Tagebuch</a>
           <div class="story-meta"><span>${escapeHtml(entryDate(entry))}</span><span>${escapeHtml(entry.mood || "Großartig")}</span></div>
           <h1>${escapeHtml(entry.title)}</h1>
-          <p class="story-detail__lead">${escapeHtml(firstParagraph)}</p>
         </div>
       </section>
 
@@ -809,7 +803,7 @@ function renderStory(entryId) {
           <strong>Wie findest du das, ganz ehrlich?</strong>
           <div class="reaction-row">${renderReactions(entry.id)}</div>
         </div>
-        <div class="comments-block">
+        <div class="comments-block" id="kommentare">
           <h2>Familien-Senf <small>(${comments.length})</small></h2>
           <div class="comments-list">
             ${
@@ -981,28 +975,30 @@ function renderGames() {
 
 function renderRoute(options = {}) {
   const route = routeFromHash();
+  const [path, queryString = ""] = route.split("?");
+  const routeOptions = new URLSearchParams(queryString);
   clearInterval(state.heroTimer);
   state.heroTimer = null;
 
   let html;
   let title = "Schweinis Welt — Genie. Chaos. Sahnetorte.";
-  if (route === "/") {
+  if (path === "/") {
     html = renderHome();
-  } else if (route === "/tagebuch") {
+  } else if (path === "/tagebuch") {
     html = renderDiary();
     title = "Tagebuch — Schweinis Welt";
-  } else if (route.startsWith("/geschichte/")) {
-    const entryId = decodeURIComponent(route.replace("/geschichte/", ""));
+  } else if (path.startsWith("/geschichte/")) {
+    const entryId = decodeURIComponent(path.replace("/geschichte/", ""));
     const entry = getEntry(entryId);
     html = renderStory(entryId);
     title = `${entry?.title || "Geschichte"} — Schweinis Welt`;
-  } else if (route === "/schweini") {
+  } else if (path === "/schweini") {
     html = renderProfile();
     title = "Das Schwein — Schweinis Welt";
-  } else if (route === "/laden") {
+  } else if (path === "/laden") {
     html = renderShop();
     title = "Quatschladen — Schweinis Welt";
-  } else if (route === "/spielplatz") {
+  } else if (path === "/spielplatz") {
     html = renderGames();
     title = "Spielplatz — Schweinis Welt";
   } else {
@@ -1012,10 +1008,13 @@ function renderRoute(options = {}) {
 
   app.innerHTML = html;
   document.title = title;
-  updateNavigation(route);
+  updateNavigation(path);
 
   if (!options.preserveScroll) window.scrollTo({ top: 0, behavior: "instant" });
-  if (route === "/") {
+  if (routeOptions.get("fokus") === "kommentare") {
+    window.requestAnimationFrame(() => document.querySelector("#kommentare")?.scrollIntoView({ block: "start" }));
+  }
+  if (path === "/") {
     fitHeroLines();
     startHeroRotation();
   }
@@ -1048,6 +1047,7 @@ function setHeroSlide(index, userInitiated = false) {
     document.querySelector("#hero-label").textContent = slide.label;
     document.querySelector("#hero-caption").textContent = slide.caption;
     document.querySelector("#hero-link").href = `#/geschichte/${encodeURIComponent(slide.entryId)}`;
+    document.querySelector("#hero-comment-link").href = `#/geschichte/${encodeURIComponent(slide.entryId)}?fokus=kommentare`;
     image.nextElementSibling?.nextElementSibling?.querySelector("span:last-child");
     document.querySelectorAll("[data-hero-index]").forEach((button, buttonIndex) => {
       button.classList.toggle("is-active", buttonIndex === state.heroIndex);
@@ -1107,16 +1107,6 @@ function closeMenu() {
   menuSheet.setAttribute("aria-hidden", "true");
   menuToggle.setAttribute("aria-expanded", "false");
   document.body.style.overflow = "";
-}
-
-function openPostDialog() {
-  closeMenu();
-  if (typeof postDialog.showModal === "function") postDialog.showModal();
-  else postDialog.setAttribute("open", "");
-}
-
-function closePostDialog() {
-  if (postDialog.open) postDialog.close();
 }
 
 function openLightbox(entryId, index) {
@@ -1190,35 +1180,6 @@ async function handleCommentSubmit(form) {
     showToast("Schweinis Funkgerät schnarcht. Versuch es gleich noch einmal.");
     submitButton.disabled = false;
   }
-}
-
-function handleFamilyPostSubmit(event) {
-  event.preventDefault();
-  const data = new FormData(postForm);
-  const draft = {
-    author: String(data.get("author") || ""),
-    title: String(data.get("title") || ""),
-    body: String(data.get("body") || ""),
-    imageNames: Array.from(postForm.elements.images.files || []).slice(0, 6).map((file) => file.name),
-    savedAt: new Date().toISOString(),
-  };
-  localStorage.setItem("schweini-family-draft", JSON.stringify(draft));
-  postForm.reset();
-  uploadPreview.innerHTML = "";
-  closePostDialog();
-  showToast("Vorgemerkt! Schweini prüft nun, ob er darin heldenhaft genug vorkommt.");
-}
-
-function handleUploads(input) {
-  const files = Array.from(input.files || []).slice(0, 6);
-  uploadPreview.innerHTML = "";
-  files.forEach((file) => {
-    const image = new Image();
-    image.alt = file.name;
-    image.src = URL.createObjectURL(file);
-    image.addEventListener("load", () => URL.revokeObjectURL(image.src), { once: true });
-    uploadPreview.append(image);
-  });
 }
 
 function handleDiaryFilter(value) {
@@ -1416,14 +1377,6 @@ document.addEventListener("click", (event) => {
   if (target.closest("[data-close-menu]") || target.closest(".menu-sheet a")) {
     closeMenu();
   }
-  if (target.closest(".open-post-dialog")) {
-    openPostDialog();
-    return;
-  }
-  if (target.closest("[data-close-dialog]")) {
-    closePostDialog();
-    return;
-  }
   if (target.closest("#intro-replay")) {
     playIntro();
     return;
@@ -1501,17 +1454,11 @@ document.addEventListener("submit", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeMenu();
-    if (postDialog.open) postDialog.close();
   }
   if (lightbox.open && event.key === "ArrowLeft") moveLightbox(-1);
   if (lightbox.open && event.key === "ArrowRight") moveLightbox(1);
 });
 
-postForm.addEventListener("submit", handleFamilyPostSubmit);
-postForm.elements.images.addEventListener("change", (event) => handleUploads(event.target));
-postDialog.addEventListener("click", (event) => {
-  if (event.target === postDialog) closePostDialog();
-});
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) lightbox.close();
 });
