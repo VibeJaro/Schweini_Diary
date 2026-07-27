@@ -17,6 +17,8 @@ create table if not exists public.entries (
   date_label text,
   author text,
   images text[],
+  hero_title text,
+  hero_punchline text,
   hero_line_1 text,
   hero_line_2 text,
   hero_line_3 text,
@@ -53,6 +55,11 @@ Bei einer bereits vorhandenen Datenbank stattdessen die idempotente Migration
 ausführen. Sie ergänzt die Hero-Felder, prüft die zulässigen Textlängen und
 befüllt die bestehenden Geschichten mit ihren ausdrücklich gewählten
 Titelbildern.
+
+Danach die Migration
+`supabase/migrations/20260727_hero_title_punchline.sql` ausführen. Sie ergänzt
+die natürliche Hero-Überschrift und ihre kurze Pointe. Die vier bisherigen
+`hero_line_*`-Felder bleiben während der Umstellung als Rückfalloption erhalten.
 
 Anschließend die Migration
 `supabase/migrations/20260727_rls_baseline.sql` ausführen. Sie aktiviert
@@ -96,7 +103,7 @@ select id, 'Oma', 'Du kleiner Krümel-Räuber!' from public.entries limit 1;
 4. Deploy starten. Danach sollte die App unter deiner Vercel-URL erreichbar sein.
 
 ## 5) Was du in Supabase befüllen kannst
-- **entries**: Titel, Stimmung, optionales Datumslabel, Autor, Text und eine Liste an Bild-URLs. Dazu kommen vier kurze Hero-Zeilen, Deck, Bildlabel, Bildunterschrift und `hero_image`.
+- **entries**: Titel, Stimmung, optionales Datumslabel, Autor, Text und eine Liste an Bild-URLs. Dazu kommen `hero_title`, `hero_punchline`, Deck, Bildlabel, Bildunterschrift und `hero_image`. Die vier alten `hero_line_*`-Felder dienen vorerst nur noch als Rückfalloption.
 - **hero_image**: Muss exakt einen vorhandenen Wert aus `images` enthalten. Die Website nimmt dafür nie mehr automatisch das erste Bild.
 - **hero_enabled**: Erst auf `true` setzen, wenn alle Hero-Texte vollständig sind und `hero_image` bewusst gewählt wurde.
 - **comments**: Author + Text pro Eintrag. Kann direkt im UI hinzugefügt werden.

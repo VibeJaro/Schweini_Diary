@@ -241,136 +241,111 @@ const fallbackReactionCounts = {
 
 const fallbackHeroByEntryId = {
   [fallbackEntries[0].id]: {
-    hero_line_1: "Workshop.",
-    hero_line_2: "Ich führe.",
-    hero_line_3: "Kuchen kann auch",
-    hero_line_4: "Arbeit sein.",
-    hero_deck:
-      "Schweini führt durch einen wichtigen Workshop, übernimmt die Technik und prüft das Buffet mit größter beruflicher Sorgfalt.",
-    hero_label: "Chef auf Dienstreise",
-    hero_caption: "Workshop, eindeutig unter Kontrolle",
+    hero_title: "Ich leite heute den Workshop und bediene die Technik.",
+    hero_punchline: "Das Buffet war äußerst kooperativ!",
+    hero_deck: "Ich klicke die Folien weg und sichere das Kuchenbuffet. Business auf ganz hohem Niveau!",
+    hero_label: "Wichtiger Workshop",
+    hero_caption: "Ein Meister seines Fachs bei der Qualitätskontrolle.",
     hero_image: fallbackEntries[0].images[2],
   },
   [fallbackEntries[1].id]: {
-    hero_line_1: "Danke.",
-    hero_line_2: "An mich.",
-    hero_line_3: "Für mein schieres",
-    hero_line_4: "Können.",
-    hero_deck: "Elisa kommt nach Hause. Schweini putzt, kocht und backt. Was könnte da schon schiefgehen?",
-    hero_label: "Haushaltsexperte",
-    hero_caption: "Triumph, absolut verdient",
+    hero_title: "Der exklusivste Drei-Sterne-Empfang aller Zeiten",
+    hero_punchline: "Die Küche steht noch, die Torte ist im Schwein!",
+    hero_deck: "Ich backe, schrubbe und verteile Mehl. Hauptsache, für Elisa wird alles absolut perfekt!",
+    hero_label: "Home Coming",
+    hero_caption: "Vorbereitung läuft auf Hochtouren. Fast unfallfrei.",
     hero_image: fallbackEntries[1].images[4],
   },
   [fallbackEntries[2].id]: {
-    hero_line_1: "Natürlich",
-    hero_line_2: "berühmt.",
-    hero_line_3: "Mein Talent ist",
-    hero_line_4: "unfassbar.",
+    hero_title: "Hollywood hat endlich ein echtes Naturtalent gefunden",
+    hero_punchline: "Der Oscar für den besten Plüsch geht an … mich!",
     hero_deck:
-      "Actionheld, Filmstar und Superschurke mit weißer Katze. Schweini liefert alles — vor allem Rüssel-Charisma.",
-    hero_label: "Direkt aus Hollywood",
-    hero_caption: "Weltruhm, völlig logisch",
+      "Ob als strahlender Retter oder geniales Schurken-Schwein mit Flausch-Katze – die Kameras lieben mich förmlich!",
+    hero_label: "Filmreife Action",
+    hero_caption: "Ein Gesicht, das für die große Leinwand gemacht ist. Pah!",
     hero_image: fallbackEntries[2].images[11],
   },
   [fallbackEntries[3].id]: {
-    hero_line_1: "Schwerelos.",
-    hero_line_2: "Fast.",
-    hero_line_3: "Torte im Bauch.",
-    hero_line_4: "Kein Problem.",
-    hero_deck:
-      "Schweini trainiert fürs Weltall, trotzt der Schwerelosigkeit und entdeckt einen winzigen Nachteil seiner Sahnetorten-Strategie.",
-    hero_label: "Erster Schweinonaut",
-    hero_caption: "Weltraumtraining mit Nebenwirkungen",
+    hero_title: "Mein knallhartes Astronautentraining für das Universum.",
+    hero_punchline: "Fliegende Sahne ist sehr schwer zu fangen!",
+    hero_deck: "Mein Astronauten-Training läuft perfekt. Nur fliegende Sahnetorten sind schwerer zu fangen, als man denkt. Upsi.",
+    hero_label: "Galaktischer Hunger",
+    hero_caption: "Völlig losgelöst (und auf der Suche nach Weltraum-Snacks).",
     hero_image: fallbackEntries[3].images[7],
   },
   [fallbackEntries[4].id]: {
-    hero_line_1: "Modeltag.",
-    hero_line_2: "Großartig.",
-    hero_line_3: "Mein Rüssel",
-    hero_line_4: "kennt Posen.",
-    hero_deck:
-      "Die Welt braucht professionelle Bilder von Schweini. Zum Glück beherrscht er jede Pose — besonders den geheimnisvollen Rüssel.",
-    hero_label: "Fotomodell von Welt",
-    hero_caption: "Die Kamera war völlig begeistert",
+    hero_title: "Die Kamera verlangt nach meinem Rüssel",
+    hero_punchline: "Bitte von meiner Schokoladenseite knipsen!",
+    hero_deck: "Die Kamera klickt, der Rüssel sitzt. Mein geheimnisvoller Blick wird die Titelseiten der ganzen Welt erobern!",
+    hero_label: "Blitzlichtgewitter",
+    hero_caption: "Mein bestes Profil. Eigentlich sind alle meine Profile perfekt.",
     hero_image: fallbackEntries[4].images[9],
   },
   [fallbackEntries[5].id]: {
-    hero_line_1: "Sportlich.",
-    hero_line_2: "Natürlich.",
-    hero_line_3: "Drei Übungen,",
-    hero_line_4: "Profi-Pause.",
-    hero_deck:
-      "Schweini startet ein gigantisches Fitnessprogramm, entdeckt seine Muskeln und nimmt die Regeneration mit Pommes sehr ernst.",
-    hero_label: "Fitnesslegende",
-    hero_caption: "Höchstleistung kurz vor der Pause",
+    hero_title: "Nach dem Höchstleistungssport braucht der Körper Ruhe",
+    hero_punchline: "Und eine sehr große Portion Pommes.",
+    hero_deck: "Elisa ist weg, also forme ich meinen perfekten Plüsch-Körper. Die anschließende Pommes-Therapie war medizinisch absolut nötig.",
+    hero_label: "Extreme Fitness",
+    hero_caption: "Ein stahlharter Athlet beim verdienten Kohlenhydrate-Tanken.",
     hero_image: fallbackEntries[5].images[7],
   },
   [fallbackEntries[6].id]: {
-    hero_line_1: "Fünf Sterne.",
-    hero_line_2: "Für mich.",
-    hero_line_3: "Gurken raus,",
-    hero_line_4: "Pommes rein.",
-    hero_deck:
-      "Schweini eröffnet seine eigene Wellness-Oase. Blubberblasen, Luxus und ein überraschend knuspriges Gurkenproblem inklusive.",
-    hero_label: "Wellnessdirektor",
-    hero_caption: "Entspannung auf höchstem Niveau",
+    hero_title: "Entspannung auf allerhöchstem Schaum-Niveau",
+    hero_punchline: "Wer hat eigentlich die Gurkenmaske aufgegessen?",
+    hero_deck: "Mein Spa-Tag war grandios entspannend! Einziges Problem: Die Gurkenmaske sah am Ende einfach zu lecker aus.",
+    hero_label: "Pure Entspannung",
+    hero_caption: "Schaum, Glamour und ein kleiner Snack zwischendurch.",
     hero_image: fallbackEntries[6].images[4],
   },
   [fallbackEntries[7].id]: {
-    hero_line_1: "Mannheim.",
-    hero_line_2: "geprüft.",
-    hero_line_3: "Kultur war nett.",
-    hero_line_4: "Nudeleis!",
-    hero_deck:
-      "Schweini prüft Mannheims Quadrate, wichtige Kultur und schließlich die entscheidende Frage: Können Nudeln auch Nachtisch?",
-    hero_label: "Stadtexperte unterwegs",
-    hero_caption: "Mannheim darf bleiben",
+    hero_title: "Auf Bildungsreise durch die Quadratestadt",
+    hero_punchline: "Nudeleis ist doch eine Hauptspeise, oder?",
+    hero_deck: "Ich habe die Quadrate genauestens vermessen. Wichtigstes Ergebnis meiner wissenschaftlichen Expedition: Nudeleis ist definitiv eine Hauptspeise.",
+    hero_label: "Stadtsafari",
+    hero_caption: "Kultur-Schwein prüft, ob die Brunnen der Stadt auch mit Schokosauce laufen.",
     hero_image: fallbackEntries[7].images[8],
   },
   [fallbackEntries[8].id]: {
-    hero_line_1: "Sturmfrei.",
-    hero_line_2: "Na endlich.",
-    hero_line_3: "Keiner stoppt",
-    hero_line_4: "mein Genie.",
-    hero_deck:
-      "Keine Aufsicht, sehr viele Regeln und ein Schwein mit einem ausgezeichneten Plan. Was soll da bitte schiefgehen?",
-    hero_label: "Chef ohne Aufsicht",
-    hero_caption: "Sturmfrei, vollkommen kontrolliert",
+    hero_title: "Ich bin komplett allein und habe einen genialen Plan.",
+    hero_punchline: "Regeln sind ohnehin nur grobe Empfehlungen.",
+    hero_deck: "Keine Aufsicht, aber tausend Ideen. Das wird die spektakulärste Aktion aller Zeiten!",
+    hero_label: "Meisterplan",
+    hero_caption: "Völlig risikofrei. Ich habe alles im Griff.",
     hero_image: fallbackEntries[8].images[5],
   },
 };
 
 const newsHeadlines = [
-  "Schweini erklärt Kuchen zum Grundnahrungsmittel",
-  "Aufräumen erneut wegen wichtiger Chefgeschäfte verschoben",
-  "Rüsselrat tagt — Ergebnis: erst mal Nachtisch",
-  "Schweini fordert mehr Applaus und weniger Gemüse",
-  "Verdacht bestätigt: Der letzte Keks ist verschwunden",
-  "Weltruhm weiterhin nur eine Frage des Kuchens",
-  "Bauch meldet Notfall: Sahnetorte erforderlich",
-  "Schweini übernimmt Verantwortung — und stellt sie wieder hin",
-  "Fachwelt staunt über außergewöhnliches Rüssel-Charisma",
+  "EILT: Torte auf mysteriöse Weise verschwunden – Schweini sichert Krümelspuren!",
+  "Sahneknappheit in der Küche befürchtet – Schweini ruft den Notstand aus!",
+  "EILT: Neuer Fitnessrekord – Schweini rollt drei Meter unfallfrei!",
+  "Sportliche Überanstrengung! Schweini muss sofort mit Kuchen behandelt werden.",
+  "EILT: Wissenschaftlich bewiesen – Sahne schützt vor schlechter Laune!",
+  "SKANDAL: Banause behauptet, Schokosauce sei kein Gemüse. Schweini kündigt sofortige Gegendarstellung an.",
+  "Wissenschaftliche Entdeckung: Nudeleis enthält alle wichtigen Plüsch-Vitamine!",
+  "Gurkenmaske aufgegessen! Wellness-Experten sind sprachlos über diese Technik.",
+  "Weltrekord: Schweini schläft 14 Stunden am Stück, um Energie für Snacks zu sammeln.",
   "Neue Studie: Pommes zählen vermutlich als Salat",
   "Elisa bleibt offiziell Schweinis Lieblingsmensch",
-  "Banausen unterschätzen erneut ein offensichtliches Genie",
+  "TICKER: Staubflocke im Flur erfolgreich verjagt. Schweini sichert der Familie weiterhin vollste Sicherheit zu.",
 ];
 
 const products = [
   {
     color: "red",
-    edition: "Limitierte Nichts-Auflage",
-    icon: "💨",
-    title: "Original Schweini-Luft",
-    text: "Direkt neben Schweini abgefüllt. Wahrscheinlich wertvoll. Mit unsichtbarem Echtheitszertifikat.",
-    price: "3 Kuchenkrümel",
+    edition: "Limitierte Meisterklasse",
+    icon: "🏰",
+    title: "Der ultimative Kissenburg-Bauplan",
+    text: "Drei Kissen, eine Decke und mein genialer statischer Ratschlag. Hält garantiert bis zum nächsten Erdbeben oder Staubsauger-Angriff.",
+    price: "3 Schokokekse",
   },
   {
     color: "blue",
-    edition: "Von Experten überschätzt",
-    icon: "🏆",
-    title: "Pokal für fast alles",
-    text: "Für besondere Leistungen wie Aufstehen, Herumsitzen oder sehr überzeugendes Nichtstun.",
-    price: "1 Kompliment",
+    edition: "Hollywood-Glow",
+    icon: "✨",
+    title: "Plüsch-Glanz-Sprühdose",
+    text: "Verleiht jedem Fell das strahlende Glänzen eines echten Weltstars. Garantiert blendend!",
+    price: "50 Goldstreusel",
   },
   {
     color: "pink",
@@ -378,15 +353,15 @@ const products = [
     icon: "🍰",
     title: "Notfall-Sahnetorte",
     text: "Nur für echte Notfälle. Ein echter Notfall liegt vor, sobald Schweini Kuchen möchte.",
-    price: "Unbezahlbar",
+    price: "Eine Sahnetorte",
   },
   {
     color: "yellow",
-    edition: "Offizielles Amtszubehör",
-    icon: "👑",
-    title: "Chef-vom-Dienst-Krone",
-    text: "Verleiht sofortige Autorität. Verantwortung und Aufräumen sind ausdrücklich nicht enthalten.",
-    price: "2× Applaus",
+    edition: "Fit-mit-Schweini",
+    icon: "🏋️",
+    title: "Hantel aus massivem Biskuit",
+    text: "Das perfekte Trainingsgerät. Nach dem Workout kann man die Hantel direkt aufessen.",
+    price: "2 Schoko-Münzen",
   },
 ];
 
@@ -427,21 +402,21 @@ function heroSlideFor(entry) {
   const fallback = fallbackHeroByEntryId[entry.id];
   if (entry.hero_enabled === false || (entry.hero_enabled == null && !fallback)) return null;
 
+  const legacyLines = ["hero_line_1", "hero_line_2", "hero_line_3", "hero_line_4"].map((key) =>
+    heroValue(entry, fallback, key),
+  );
   const slide = {
     entryId: entry.id,
-    lines: [
-      heroValue(entry, fallback, "hero_line_1"),
-      heroValue(entry, fallback, "hero_line_2"),
-      heroValue(entry, fallback, "hero_line_3"),
-      heroValue(entry, fallback, "hero_line_4"),
-    ],
+    title: heroValue(entry, fallback, "hero_title") || legacyLines.slice(0, 2).filter(Boolean).join(" "),
+    punchline:
+      heroValue(entry, fallback, "hero_punchline") || legacyLines.slice(2).filter(Boolean).join(" "),
     deck: heroValue(entry, fallback, "hero_deck"),
     label: heroValue(entry, fallback, "hero_label"),
     caption: heroValue(entry, fallback, "hero_caption"),
     image: heroValue(entry, fallback, "hero_image"),
   };
 
-  return slide.lines.every(Boolean) && slide.deck && slide.label && slide.caption && slide.image ? slide : null;
+  return slide.title && slide.punchline && slide.deck && slide.label && slide.caption && slide.image ? slide : null;
 }
 
 function buildHeroSlides(entries) {
@@ -694,10 +669,8 @@ function renderHome() {
               <span class="issue-number">Ausgabe 09</span>
             </div>
             <h1 class="hero-title">
-              <span class="hero-title__top" id="hero-line-1">${escapeHtml(slide.lines[0])}</span>
-              <span class="hero-title__red hero-title__fit" id="hero-line-2">${escapeHtml(slide.lines[1])}</span>
-              <span class="hero-title__script" id="hero-line-3">${escapeHtml(slide.lines[2])}</span>
-              <span class="hero-title__fit" id="hero-line-4">${escapeHtml(slide.lines[3])}</span>
+              <span class="hero-title__setup" id="hero-title">${escapeHtml(slide.title)}</span>
+              <span class="hero-title__punchline" id="hero-punchline">${escapeHtml(slide.punchline)}</span>
             </h1>
             <p class="hero-deck" id="hero-deck">${escapeHtml(slide.deck)}</p>
             <div class="hero-actions">
@@ -772,7 +745,7 @@ function renderHome() {
         <div class="section-shell">
           <div class="section-heading">
             <span class="section-heading__number">02</span>
-            <div><small>Familien-Funk</small><h2>Die Familie hat Meinungen</h2></div>
+            <div><small>Familien-Funk</small><h2>Das sagt die Familie</h2></div>
             <p>Hier darf meine Familie ihren Senf dazugeben. Ich lese selbstverständlich alles – besonders Lob, Kuchenhinweise und weitere Beweise für mein Genie.</p>
           </div>
           ${renderCommentsRail()}
@@ -783,7 +756,7 @@ function renderHome() {
         <div class="section-shell">
           <div class="section-heading">
             <span class="section-heading__number">03</span>
-            <div><small>Von Schweini handverlesen</small><h2>Der Quatschladen</h2></div>
+            <div><small>Exklusive Schätze</small><h2>Schweinis Schatztruhe</h2></div>
             <p>Ich habe nur die wunderbarsten Dinge ausgewählt. Selten, großartig und von mir persönlich für völlig unverzichtbar erklärt.</p>
           </div>
           ${renderProducts(3, true)}
@@ -946,14 +919,14 @@ function renderProfile() {
             <img src="public/images/profile.webp" alt="Schweini, offizielles Porträt">
           </div>
           <div class="profile-copy">
-            <span class="eyebrow">Offiziell vom Schwein bestätigt</span>
+            <span class="eyebrow">Das Genie hinter dem Rüssel</span>
             <h1>Schweini</h1>
             <p class="profile-copy__quote">„Bescheidenheit ist wichtig. Deshalb erzähle ich nur sehr selten, dass ich in allem der Beste bin.“</p>
             <div class="profile-facts">
-              <div class="profile-fact"><span>Beruf</span><strong>Genie</strong></div>
+              <div class="profile-fact"><span>Beruf</span><strong>Chef-Genie &amp; Vollzeit-Star</strong></div>
               <div class="profile-fact"><span>Talent</span><strong>Alles</strong></div>
-              <div class="profile-fact"><span>Lieblingsessen</span><strong>Kuchen</strong></div>
-              <div class="profile-fact"><span>Lieblingsmensch</span><strong>Elisa</strong></div>
+              <div class="profile-fact"><span>Lieblingsessen</span><strong>Schweini-Power-Bowl (alles mit Sahne)</strong></div>
+              <div class="profile-fact"><span>Lieblingsmensch</span><strong>Elisa (niemand kuschelt besser!)</strong></div>
             </div>
           </div>
         </div>
@@ -962,20 +935,20 @@ function renderProfile() {
       <section class="section-shell">
         <div class="section-heading">
           <span class="section-heading__number">01</span>
-          <div><small>Die offizielle Schweini-Lehre</small><h2>Seine drei Grundsätze</h2></div>
+          <div><small>Die offizielle Schweini-Lehre</small><h2>Die drei Säulen des Schweintums</h2></div>
         </div>
         <div class="manifesto-grid">
           <article class="manifesto-card"><span>01</span><h3>Erst Kuchen, dann Fragen</h3><p>Komplizierte Entscheidungen lassen sich mit Sahne wesentlich besser treffen.</p></article>
-          <article class="manifesto-card"><span>02</span><h3>Selbstvertrauen spart Zeit</h3><p>Warum auf Applaus warten, wenn man sich sofort selbst eine Rede halten kann?</p></article>
-          <article class="manifesto-card"><span>03</span><h3>Elisa ist wichtiger als Ruhm</h3><p>Weltruhm ist nett. Kuscheln mit Elisa ist allerdings ganz klar die bessere Karriere.</p></article>
+          <article class="manifesto-card"><span>02</span><h3>Torte ist auch Gemüse</h3><p>Da Kakao aus einer Pflanze kommt und Sahne von der Wiese, ist jede Torte im Grunde ein sehr gesunder Salat. Logisch, oder?</p></article>
+          <article class="manifesto-card"><span>03</span><h3>Elisa ist die Beste</h3><p>Weltruhm ist nett, aber am Ende zählt nur, wer mich abends im Arm hält.</p></article>
         </div>
       </section>
 
       <section class="section-shell">
         <div class="section-heading">
           <span class="section-heading__number">02</span>
-          <div><small>Karriere eines Ausnahmeschweins</small><h2>Die Chronik</h2></div>
-          <p>Von Sturmfrei bis Weltruhm in nur wenigen, erstaunlich chaotischen Wochen.</p>
+          <div><small>Historische Momente</small><h2>Mein steiler Aufstieg</h2></div>
+          <p>Wie aus einem unfassbar süßen Ferkel eine absolute Legende des Alltags wurde. Schnallt euch an, hier sind meine größten Meilensteine!</p>
         </div>
         <div class="timeline">
           ${timelineEntries
@@ -997,9 +970,9 @@ function renderShop() {
   return `
     <div class="route">
       <header class="page-hero page-shell" data-watermark="€0">
-        <span class="eyebrow eyebrow--boxed">Schweinis Warenimperium</span>
-        <h1>Quatschladen <em>voller Meisterwerke</em></h1>
-        <p>Willkommen in meiner streng erlesenen Sammlung wunderbarer Dinge. Wer guten Geschmack hat, möchte natürlich sofort alles haben.</p>
+        <span class="eyebrow eyebrow--boxed">Exklusive Meisterwerke</span>
+        <h1>Der offizielle <em>Schweini-Store</em></h1>
+        <p>Jedes Stück wurde von mir persönlich getestet, für genial befunden und fast nicht angeknabbert. Greif zu, bevor ich alles selbst behalte!</p>
       </header>
       <section class="page-shell">
         ${renderProducts()}
@@ -1114,7 +1087,6 @@ function renderRoute(options = {}) {
     window.requestAnimationFrame(() => document.querySelector("#kommentare")?.scrollIntoView({ block: "start" }));
   }
   if (path === "/") {
-    fitHeroLines();
     startHeroRotation();
   }
 }
@@ -1140,10 +1112,8 @@ function setHeroSlide(index, userInitiated = false) {
   window.setTimeout(() => {
     image.src = imagePath(slide.image);
     image.alt = getEntry(slide.entryId)?.title || "Schweini in seinem neuesten Abenteuer";
-    document.querySelector("#hero-line-1").textContent = slide.lines[0];
-    document.querySelector("#hero-line-2").textContent = slide.lines[1];
-    document.querySelector("#hero-line-3").textContent = slide.lines[2];
-    document.querySelector("#hero-line-4").textContent = slide.lines[3];
+    document.querySelector("#hero-title").textContent = slide.title;
+    document.querySelector("#hero-punchline").textContent = slide.punchline;
     document.querySelector("#hero-deck").textContent = slide.deck;
     document.querySelector("#hero-label").textContent = slide.label;
     document.querySelector("#hero-caption").textContent = slide.caption;
@@ -1154,35 +1124,10 @@ function setHeroSlide(index, userInitiated = false) {
     document.querySelectorAll("[data-hero-index]").forEach((button, buttonIndex) => {
       button.classList.toggle("is-active", buttonIndex === state.heroIndex);
     });
-    fitHeroLines();
     image.classList.remove("is-changing");
   }, 170);
 
   if (userInitiated) startHeroRotation();
-}
-
-function fitHeroLines() {
-  const title = document.querySelector(".hero-title");
-  const lines = title?.querySelectorAll(".hero-title__fit");
-  if (!title || !lines?.length) return;
-
-  lines.forEach((line) => {
-    line.style.fontSize = "";
-  });
-
-  window.requestAnimationFrame(() => {
-    const availableWidth = title.clientWidth - 8;
-    lines.forEach((line) => {
-      const range = document.createRange();
-      range.selectNodeContents(line);
-      const textWidth = range.getBoundingClientRect().width;
-      if (textWidth <= availableWidth) return;
-
-      const naturalSize = Number.parseFloat(window.getComputedStyle(line).fontSize);
-      const fittedSize = naturalSize * (availableWidth / textWidth) * .98;
-      line.style.fontSize = `${fittedSize}px`;
-    });
-  });
 }
 
 function startHeroRotation() {
@@ -1587,11 +1532,8 @@ lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) lightbox.close();
 });
 window.addEventListener("hashchange", () => renderRoute());
-window.addEventListener("resize", fitHeroLines);
 
 renderRoute();
 updateTicker();
 initIntro();
 loadLiveData();
-
-document.fonts?.ready.then(fitHeroLines);

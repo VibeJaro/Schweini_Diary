@@ -573,52 +573,46 @@ a {
 .hero-title {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(3rem, 15.4vw, 7.8rem);
-  line-height: .86;
-  letter-spacing: -.075em;
-  text-transform: uppercase;
+  font-size: clamp(2.65rem, 12vw, 6.8rem);
+  line-height: .9;
+  letter-spacing: -.065em;
 }
 
 .hero-title span {
   display: block;
-  line-height: .86;
 }
 
-.hero-title__fit {
+.hero-title__setup {
   max-width: 100%;
-  white-space: nowrap;
+  line-height: .9;
+  text-transform: uppercase;
+  text-wrap: balance;
 }
 
-.hero-title__top {
-  margin-bottom: .18em;
-  font-family: var(--serif);
-  font-size: .34em;
-  font-style: italic;
-  line-height: 1;
-  letter-spacing: -.02em;
-  text-transform: none;
-}
-
-.hero-title__red {
+.hero-title__punchline {
+  position: relative;
+  z-index: 1;
+  width: fit-content;
+  max-width: 94%;
+  margin: .45em 0 .18em .08em;
+  padding: .05em .12em .09em;
   color: var(--red);
-  line-height: .82;
-  padding-top: .08em;
-}
-
-.hero-title__script {
-  margin: .5em 0 .3em;
   font-family: var(--serif);
-  font-size: .29em;
+  font-size: .39em;
   font-style: italic;
-  line-height: 1.05;
-  letter-spacing: 0;
-  text-transform: none;
-  transform: rotate(-2deg);
+  line-height: 1.08;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+  transform: rotate(-1.5deg);
 }
 
-#hero-line-4 {
-  line-height: .92;
-  padding-top: .08em;
+.hero-title__punchline::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 18% -.12em 4%;
+  background: color-mix(in srgb, var(--yellow) 78%, transparent);
+  transform: rotate(.7deg);
 }
 
 .hero-deck {
@@ -692,6 +686,7 @@ a {
 .hero-stage__caption {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 12px;
   padding: 12px 13px;
   color: white;
@@ -699,6 +694,15 @@ a {
   font-size: .6rem;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+.hero-stage__caption span:first-child {
+  flex: 1 1 auto;
+}
+
+.hero-stage__caption span:last-child {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .hero-switcher {
@@ -2491,7 +2495,7 @@ dialog::backdrop {
   .intro__copy { padding-inline: 10px; }
   .intro__copy strong { font-size: 12.5vw; }
   .hero-title {
-    font-size: 2.9rem;
+    font-size: clamp(2.35rem, 12vw, 2.9rem);
     letter-spacing: -.065em;
   }
   .hero-switch {
