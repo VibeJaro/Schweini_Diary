@@ -239,31 +239,120 @@ const fallbackReactionCounts = {
   [fallbackEntries[3].id]: { "🐷": 7, "🤣": 13, "🤦": 6, "💩": 10 },
 };
 
-const heroSlides = [
-  {
-    entryId: fallbackEntries[0].id,
-    lines: ["Chef", "im Dienst.", "Das war echte", "Kuchenarbeit."],
-    image: "public/images/10_1.webp",
-    label: "Das VIP-Schwein",
-    caption: "Wichtige Konferenz, angeblich",
-    deck: "Schweini auf wichtiger Dienstreise. Mit großem Hunger, noch größerem Auftritt und exakt null Zurückhaltung.",
+const fallbackHeroByEntryId = {
+  [fallbackEntries[0].id]: {
+    hero_line_1: "Workshop.",
+    hero_line_2: "Ich führe.",
+    hero_line_3: "Kuchen kann auch",
+    hero_line_4: "Arbeit sein.",
+    hero_deck:
+      "Schweini führt durch einen wichtigen Workshop, übernimmt die Technik und prüft das Buffet mit größter beruflicher Sorgfalt.",
+    hero_label: "Chef auf Dienstreise",
+    hero_caption: "Workshop, eindeutig unter Kontrolle",
+    hero_image: fallbackEntries[0].images[2],
   },
-  {
-    entryId: fallbackEntries[2].id,
-    lines: ["Natürlich", "berühmt.", "Mein Talent ist", "unfassbar."],
-    image: "public/images/8_4.webp",
-    label: "Direkt aus Hollywood",
-    caption: "Weltruhm, völlig logisch",
-    deck: "Actionheld, Filmstar und Superschurke mit weißer Katze. Schweini liefert alles — vor allem Rüssel-Charisma.",
+  [fallbackEntries[1].id]: {
+    hero_line_1: "Danke.",
+    hero_line_2: "An mich.",
+    hero_line_3: "Für mein schieres",
+    hero_line_4: "Können.",
+    hero_deck: "Elisa kommt nach Hause. Schweini putzt, kocht und backt. Was könnte da schon schiefgehen?",
+    hero_label: "Haushaltsexperte",
+    hero_caption: "Triumph, absolut verdient",
+    hero_image: fallbackEntries[1].images[4],
   },
-  {
-    entryId: fallbackEntries[1].id,
-    lines: ["Danke.", "An mich.", "Für mein schieres", "Können."],
-    image: "public/images/9_2.webp",
-    label: "Haushaltsexperte",
-    caption: "Triumph, absolut verdient",
-    deck: "Elisa kommt nach Hause. Schweini putzt, kocht und backt. Was könnte da schon schiefgehen?",
+  [fallbackEntries[2].id]: {
+    hero_line_1: "Natürlich",
+    hero_line_2: "berühmt.",
+    hero_line_3: "Mein Talent ist",
+    hero_line_4: "unfassbar.",
+    hero_deck:
+      "Actionheld, Filmstar und Superschurke mit weißer Katze. Schweini liefert alles — vor allem Rüssel-Charisma.",
+    hero_label: "Direkt aus Hollywood",
+    hero_caption: "Weltruhm, völlig logisch",
+    hero_image: fallbackEntries[2].images[11],
   },
+  [fallbackEntries[3].id]: {
+    hero_line_1: "Schwerelos.",
+    hero_line_2: "Fast.",
+    hero_line_3: "Torte im Bauch.",
+    hero_line_4: "Kein Problem.",
+    hero_deck:
+      "Schweini trainiert fürs Weltall, trotzt der Schwerelosigkeit und entdeckt einen winzigen Nachteil seiner Sahnetorten-Strategie.",
+    hero_label: "Erster Schweinonaut",
+    hero_caption: "Weltraumtraining mit Nebenwirkungen",
+    hero_image: fallbackEntries[3].images[7],
+  },
+  [fallbackEntries[4].id]: {
+    hero_line_1: "Modeltag.",
+    hero_line_2: "Großartig.",
+    hero_line_3: "Mein Rüssel",
+    hero_line_4: "kennt Posen.",
+    hero_deck:
+      "Die Welt braucht professionelle Bilder von Schweini. Zum Glück beherrscht er jede Pose — besonders den geheimnisvollen Rüssel.",
+    hero_label: "Fotomodell von Welt",
+    hero_caption: "Die Kamera war völlig begeistert",
+    hero_image: fallbackEntries[4].images[9],
+  },
+  [fallbackEntries[5].id]: {
+    hero_line_1: "Sportlich.",
+    hero_line_2: "Natürlich.",
+    hero_line_3: "Drei Übungen,",
+    hero_line_4: "Profi-Pause.",
+    hero_deck:
+      "Schweini startet ein gigantisches Fitnessprogramm, entdeckt seine Muskeln und nimmt die Regeneration mit Pommes sehr ernst.",
+    hero_label: "Fitnesslegende",
+    hero_caption: "Höchstleistung kurz vor der Pause",
+    hero_image: fallbackEntries[5].images[7],
+  },
+  [fallbackEntries[6].id]: {
+    hero_line_1: "Fünf Sterne.",
+    hero_line_2: "Für mich.",
+    hero_line_3: "Gurken raus,",
+    hero_line_4: "Pommes rein.",
+    hero_deck:
+      "Schweini eröffnet seine eigene Wellness-Oase. Blubberblasen, Luxus und ein überraschend knuspriges Gurkenproblem inklusive.",
+    hero_label: "Wellnessdirektor",
+    hero_caption: "Entspannung auf höchstem Niveau",
+    hero_image: fallbackEntries[6].images[4],
+  },
+  [fallbackEntries[7].id]: {
+    hero_line_1: "Mannheim.",
+    hero_line_2: "geprüft.",
+    hero_line_3: "Kultur war nett.",
+    hero_line_4: "Nudeleis!",
+    hero_deck:
+      "Schweini prüft Mannheims Quadrate, wichtige Kultur und schließlich die entscheidende Frage: Können Nudeln auch Nachtisch?",
+    hero_label: "Stadtexperte unterwegs",
+    hero_caption: "Mannheim darf bleiben",
+    hero_image: fallbackEntries[7].images[8],
+  },
+  [fallbackEntries[8].id]: {
+    hero_line_1: "Sturmfrei.",
+    hero_line_2: "Na endlich.",
+    hero_line_3: "Keiner stoppt",
+    hero_line_4: "mein Genie.",
+    hero_deck:
+      "Keine Aufsicht, sehr viele Regeln und ein Schwein mit einem ausgezeichneten Plan. Was soll da bitte schiefgehen?",
+    hero_label: "Chef ohne Aufsicht",
+    hero_caption: "Sturmfrei, vollkommen kontrolliert",
+    hero_image: fallbackEntries[8].images[5],
+  },
+};
+
+const newsHeadlines = [
+  "Schweini erklärt Kuchen zum Grundnahrungsmittel",
+  "Aufräumen erneut wegen wichtiger Chefgeschäfte verschoben",
+  "Rüsselrat tagt — Ergebnis: erst mal Nachtisch",
+  "Schweini fordert mehr Applaus und weniger Gemüse",
+  "Verdacht bestätigt: Der letzte Keks ist verschwunden",
+  "Weltruhm weiterhin nur eine Frage des Kuchens",
+  "Bauch meldet Notfall: Sahnetorte erforderlich",
+  "Schweini übernimmt Verantwortung — und stellt sie wieder hin",
+  "Fachwelt staunt über außergewöhnliches Rüssel-Charisma",
+  "Neue Studie: Pommes zählen vermutlich als Salat",
+  "Elisa bleibt offiziell Schweinis Lieblingsmensch",
+  "Banausen unterschätzen erneut ein offensichtliches Genie",
 ];
 
 const products = [
@@ -307,13 +396,57 @@ const state = {
   reactionCounts: structuredClone(fallbackReactionCounts),
   connected: false,
   heroIndex: 0,
+  heroSlides: [],
   heroTimer: null,
-  diaryFilter: "alle",
+  tickerHeadlines: shuffled(newsHeadlines).slice(0, 6),
   lightboxImages: [],
   lightboxIndex: 0,
   memory: null,
+  chaosTimer: null,
   toastTimer: null,
 };
+
+state.heroSlides = buildHeroSlides(state.entries);
+
+function shuffled(items) {
+  const result = [...items];
+  for (let index = result.length - 1; index > 0; index -= 1) {
+    const target = Math.floor(Math.random() * (index + 1));
+    [result[index], result[target]] = [result[target], result[index]];
+  }
+  return result;
+}
+
+function heroValue(entry, fallback, key) {
+  const value = entry?.[key];
+  if (typeof value === "string" && value.trim()) return value.trim();
+  return fallback?.[key] || "";
+}
+
+function heroSlideFor(entry) {
+  const fallback = fallbackHeroByEntryId[entry.id];
+  if (entry.hero_enabled === false || (entry.hero_enabled == null && !fallback)) return null;
+
+  const slide = {
+    entryId: entry.id,
+    lines: [
+      heroValue(entry, fallback, "hero_line_1"),
+      heroValue(entry, fallback, "hero_line_2"),
+      heroValue(entry, fallback, "hero_line_3"),
+      heroValue(entry, fallback, "hero_line_4"),
+    ],
+    deck: heroValue(entry, fallback, "hero_deck"),
+    label: heroValue(entry, fallback, "hero_label"),
+    caption: heroValue(entry, fallback, "hero_caption"),
+    image: heroValue(entry, fallback, "hero_image"),
+  };
+
+  return slide.lines.every(Boolean) && slide.deck && slide.label && slide.caption && slide.image ? slide : null;
+}
+
+function buildHeroSlides(entries) {
+  return shuffled(entries.map(heroSlideFor).filter(Boolean)).slice(0, 3);
+}
 
 function escapeHtml(value = "") {
   return String(value)
@@ -375,7 +508,7 @@ function imagePath(source) {
   return source.replace(/\.png$/i, ".webp");
 }
 
-function entryDate(entry) {
+function formatDateTime(value, fallback = "Neulich") {
   try {
     const parts = new Intl.DateTimeFormat("de-DE", {
       day: "2-digit",
@@ -385,12 +518,16 @@ function entryDate(entry) {
       minute: "2-digit",
       hour12: false,
       timeZone: "Europe/Berlin",
-    }).formatToParts(new Date(entry.created_at));
-    const value = Object.fromEntries(parts.map((part) => [part.type, part.value]));
-    return `${value.day}.${value.month}.${value.year} · ${value.hour}:${value.minute}`;
+    }).formatToParts(new Date(value));
+    const fields = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+    return `${fields.day}.${fields.month}.${fields.year} · ${fields.hour}:${fields.minute}`;
   } catch {
-    return "Neulich";
+    return fallback;
   }
+}
+
+function entryDate(entry) {
+  return formatDateTime(entry.created_at);
 }
 
 function commentsFor(entryId) {
@@ -535,32 +672,17 @@ function renderCommentsRail() {
                 </div>
               </header>
               <p>„${escapeHtml(comment.body)}“</p>
-              <time>${escapeHtml(formatRelativeDate(comment.created_at))}</time>
+              <time datetime="${escapeHtml(comment.created_at || "")}">${escapeHtml(formatDateTime(comment.created_at, "Gerade eben"))}</time>
             </a>`;
         })
         .join("")}
     </div>`;
 }
 
-function formatRelativeDate(date) {
-  if (!date) return "Gerade eben";
-  const difference = Date.now() - new Date(date).getTime();
-  const days = Math.floor(difference / 86400000);
-  if (days <= 0) return "Heute";
-  if (days === 1) return "Gestern";
-  if (days < 7) return `vor ${days} Tagen`;
-  return new Intl.DateTimeFormat("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    timeZone: "Europe/Berlin",
-  }).format(new Date(date));
-}
-
 function renderHome() {
   const featured = state.entries[0];
   const secondary = state.entries.slice(1, 5);
-  const slide = heroSlides[state.heroIndex];
+  const slide = state.heroSlides[state.heroIndex] || state.heroSlides[0];
 
   return `
     <div class="route route--home">
@@ -586,19 +708,19 @@ function renderHome() {
 
           <div class="hero-stage">
             <div class="hero-stage__photo">
-              <img id="hero-image" src="${escapeHtml(slide.image)}" alt="Schweini in seinem neuesten Abenteuer">
+              <img id="hero-image" src="${escapeHtml(imagePath(slide.image))}" alt="${escapeHtml(getEntry(slide.entryId)?.title || "Schweini in seinem neuesten Abenteuer")}">
               <span class="hero-stage__label" id="hero-label">${escapeHtml(slide.label)}</span>
               <div class="hero-stage__caption">
                 <span id="hero-caption">${escapeHtml(slide.caption)}</span>
-                <span>Foto ${String(state.heroIndex + 1).padStart(2, "0")} / 03</span>
+                <span id="hero-counter">Foto ${String(state.heroIndex + 1).padStart(2, "0")} / ${String(state.heroSlides.length).padStart(2, "0")}</span>
               </div>
             </div>
             <div class="hero-switcher" aria-label="Titelgeschichten">
-              ${heroSlides
+              ${state.heroSlides
                 .map(
                   (item, index) => `
                     <button class="hero-switch ${index === state.heroIndex ? "is-active" : ""}" type="button" data-hero-index="${index}">
-                      <img src="${escapeHtml(item.image)}" alt="" aria-hidden="true">
+                      <img src="${escapeHtml(imagePath(item.image))}" alt="" aria-hidden="true">
                       <span>${escapeHtml(item.caption)}</span>
                     </button>`,
                 )
@@ -651,7 +773,7 @@ function renderHome() {
           <div class="section-heading">
             <span class="section-heading__number">02</span>
             <div><small>Familien-Funk</small><h2>Die Familie hat Meinungen</h2></div>
-            <p>Kein Login, keine Fremden, nur wohlmeinende Zwischenrufe und gelegentliche Nachfragen zu verschwundenem Kuchen.</p>
+            <p>Hier darf meine Familie ihren Senf dazugeben. Ich lese selbstverständlich alles – besonders Lob, Kuchenhinweise und weitere Beweise für mein Genie.</p>
           </div>
           ${renderCommentsRail()}
         </div>
@@ -661,8 +783,8 @@ function renderHome() {
         <div class="section-shell">
           <div class="section-heading">
             <span class="section-heading__number">03</span>
-            <div><small>Ausverkauft wegen Genialität</small><h2>Der Quatschladen</h2></div>
-            <p>Exklusive Dinge, die niemand braucht und trotzdem alle haben wollen. Bezahlt wird selbstverständlich nicht mit echtem Geld.</p>
+            <div><small>Von Schweini handverlesen</small><h2>Der Quatschladen</h2></div>
+            <p>Ich habe nur die wunderbarsten Dinge ausgewählt. Selten, großartig und von mir persönlich für völlig unverzichtbar erklärt.</p>
           </div>
           ${renderProducts(3, true)}
           <div class="section-actions"><a class="button button--paper" href="#/laden">Alles ansehen →</a></div>
@@ -688,25 +810,7 @@ function renderHome() {
     </div>`;
 }
 
-function categoryFor(entry) {
-  const value = `${entry.title} ${entry.body}`.toLowerCase();
-  if (/star|ruhm|model|weltall/.test(value)) return "weltruhm";
-  if (/reise|stadt|mannheim|workshop/.test(value)) return "unterwegs";
-  return "zuhause";
-}
-
 function renderDiary() {
-  const categories = [
-    ["alle", "Alle"],
-    ["weltruhm", "Weltruhm"],
-    ["unterwegs", "Unterwegs"],
-    ["zuhause", "Zu Hause"],
-  ];
-  const entries =
-    state.diaryFilter === "alle"
-      ? state.entries
-      : state.entries.filter((entry) => categoryFor(entry) === state.diaryFilter);
-
   return `
     <div class="route">
       <header class="page-hero page-shell" data-watermark="09">
@@ -715,16 +819,8 @@ function renderDiary() {
         <p>Alle echten Heldentaten, kleineren Missverständnisse und sehr vernünftigen Kuchenentscheidungen an einem Ort.</p>
       </header>
       <section class="page-shell">
-        <div class="filter-row" aria-label="Geschichten filtern">
-          ${categories
-            .map(
-              ([value, label]) =>
-                `<button class="filter-chip ${state.diaryFilter === value ? "is-active" : ""}" type="button" data-diary-filter="${value}">${label}</button>`,
-            )
-            .join("")}
-        </div>
         <div class="diary-grid">
-          ${entries
+          ${state.entries
             .map(
               (entry, index) => `
                 <article class="diary-card">
@@ -812,7 +908,10 @@ function renderStory(entryId) {
                     .map(
                       (comment) => `
                         <article class="story-comment">
-                          <strong>${escapeHtml(comment.author || "Familie")}</strong>
+                          <header>
+                            <strong>${escapeHtml(comment.author || "Familie")}</strong>
+                            <time datetime="${escapeHtml(comment.created_at || "")}">${escapeHtml(formatDateTime(comment.created_at, "Gerade eben"))}</time>
+                          </header>
                           <p>${escapeHtml(comment.body)}</p>
                         </article>`,
                     )
@@ -838,7 +937,7 @@ function renderStory(entryId) {
 }
 
 function renderProfile() {
-  const timelineEntries = state.entries.slice().reverse().slice(-6);
+  const timelineEntries = state.entries.slice().reverse();
   return `
     <div class="route">
       <section class="profile-hero">
@@ -898,13 +997,13 @@ function renderShop() {
   return `
     <div class="route">
       <header class="page-hero page-shell" data-watermark="€0">
-        <span class="eyebrow eyebrow--boxed">Ausverkauft wegen Genialität</span>
-        <h1>Quatschladen <em>garantiert unnötig</em></h1>
-        <p>Keine echten Produkte, kein echtes Geld, keinerlei vernünftiger Nutzen. Schweini hält das für ein ausgezeichnetes Geschäftsmodell.</p>
+        <span class="eyebrow eyebrow--boxed">Schweinis Warenimperium</span>
+        <h1>Quatschladen <em>voller Meisterwerke</em></h1>
+        <p>Willkommen in meiner streng erlesenen Sammlung wunderbarer Dinge. Wer guten Geschmack hat, möchte natürlich sofort alles haben.</p>
       </header>
       <section class="page-shell">
         ${renderProducts()}
-        <p class="empty-state">Alle Produkte sind gleichzeitig limitiert, ausverkauft und jederzeit verfügbar. Fragen dazu beantwortet Schweinis Rechtsabteilung — also niemand.</p>
+        <p class="empty-state">Jedes Meisterwerk ist streng limitiert. Vor allem, weil ich das meiste selbstverständlich selbst behalten möchte.</p>
       </section>
       ${renderFooter()}
     </div>`;
@@ -1031,14 +1130,16 @@ function updateNavigation(route) {
 }
 
 function setHeroSlide(index, userInitiated = false) {
-  state.heroIndex = Number(index) % heroSlides.length;
-  const slide = heroSlides[state.heroIndex];
+  if (!state.heroSlides.length) return;
+  state.heroIndex = Number(index) % state.heroSlides.length;
+  const slide = state.heroSlides[state.heroIndex];
   const image = document.querySelector("#hero-image");
   if (!image) return;
 
   image.classList.add("is-changing");
   window.setTimeout(() => {
-    image.src = slide.image;
+    image.src = imagePath(slide.image);
+    image.alt = getEntry(slide.entryId)?.title || "Schweini in seinem neuesten Abenteuer";
     document.querySelector("#hero-line-1").textContent = slide.lines[0];
     document.querySelector("#hero-line-2").textContent = slide.lines[1];
     document.querySelector("#hero-line-3").textContent = slide.lines[2];
@@ -1048,7 +1149,8 @@ function setHeroSlide(index, userInitiated = false) {
     document.querySelector("#hero-caption").textContent = slide.caption;
     document.querySelector("#hero-link").href = `#/geschichte/${encodeURIComponent(slide.entryId)}`;
     document.querySelector("#hero-comment-link").href = `#/geschichte/${encodeURIComponent(slide.entryId)}?fokus=kommentare`;
-    image.nextElementSibling?.nextElementSibling?.querySelector("span:last-child");
+    document.querySelector("#hero-counter").textContent =
+      `Foto ${String(state.heroIndex + 1).padStart(2, "0")} / ${String(state.heroSlides.length).padStart(2, "0")}`;
     document.querySelectorAll("[data-hero-index]").forEach((button, buttonIndex) => {
       button.classList.toggle("is-active", buttonIndex === state.heroIndex);
     });
@@ -1085,7 +1187,10 @@ function fitHeroLines() {
 
 function startHeroRotation() {
   clearInterval(state.heroTimer);
-  state.heroTimer = window.setInterval(() => setHeroSlide(state.heroIndex + 1), 6500);
+  state.heroTimer =
+    state.heroSlides.length > 1
+      ? window.setInterval(() => setHeroSlide(state.heroIndex + 1), 6500)
+      : null;
 }
 
 function showToast(message) {
@@ -1182,11 +1287,6 @@ async function handleCommentSubmit(form) {
   }
 }
 
-function handleDiaryFilter(value) {
-  state.diaryFilter = value;
-  renderRoute({ preserveScroll: true });
-}
-
 function handleMemoryCard(index) {
   const game = state.memory;
   const card = game?.cards[index];
@@ -1260,16 +1360,32 @@ function askOracle() {
 }
 
 function triggerChaos() {
-  document.body.animate(
-    [
-      { transform: "translateX(0) rotate(0)" },
-      { transform: "translateX(-7px) rotate(-.2deg)" },
-      { transform: "translateX(6px) rotate(.2deg)" },
-      { transform: "translateX(-3px)" },
-      { transform: "translateX(0)" },
-    ],
-    { duration: 520, easing: "ease-in-out" },
-  );
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const overlay = document.querySelector("#chaos-overlay");
+
+  clearTimeout(state.chaosTimer);
+  overlay?.classList.remove("is-active");
+
+  if (!reducedMotion) {
+    app.animate(
+      [
+        { transform: "translate3d(0, 0, 0) rotate(0)" },
+        { transform: "translate3d(-13px, 4px, 0) rotate(-.65deg)" },
+        { transform: "translate3d(12px, -5px, 0) rotate(.7deg)" },
+        { transform: "translate3d(-9px, 3px, 0) rotate(-.45deg)" },
+        { transform: "translate3d(7px, -2px, 0) rotate(.3deg)" },
+        { transform: "translate3d(0, 0, 0) rotate(0)" },
+      ],
+      { duration: 820, easing: "cubic-bezier(.36,.07,.19,.97)" },
+    );
+
+    if (overlay) {
+      void overlay.offsetWidth;
+      overlay.classList.add("is-active");
+      state.chaosTimer = window.setTimeout(() => overlay.classList.remove("is-active"), 1000);
+    }
+  }
+
   showToast("Upsi. Niemand weiß, was dieser Knopf tut. Perfekt.");
 }
 
@@ -1325,6 +1441,11 @@ async function loadLiveData() {
     }
 
     state.entries = entries.map((entry) => ({ ...entry, author: entry.author || "Schweini" }));
+    const liveHeroSlides = buildHeroSlides(state.entries);
+    if (liveHeroSlides.length === 3) {
+      state.heroSlides = liveHeroSlides;
+      state.heroIndex = 0;
+    }
     state.comments = comments || [];
     state.reactionCounts = counts;
     state.connected = true;
@@ -1336,10 +1457,19 @@ async function loadLiveData() {
 }
 
 function updateTicker() {
-  const ticker = document.querySelector(".news-ticker__viewport span");
-  if (!ticker) return;
+  const tickerSequences = document.querySelectorAll("[data-ticker-sequence]");
+  if (!tickerSequences.length) return;
   const photos = state.entries.reduce((sum, entry) => sum + (entry.images?.length || 0), 0);
-  ticker.textContent = `${state.entries.length} Abenteuer · ${photos} Fotos · ${state.comments.length} Kommentare · Chaos-Level 9000 · Schweini fordert mehr Kuchen ·`;
+  const items = [
+    `${state.entries.length} Abenteuer`,
+    `${photos} Fotos`,
+    `${state.comments.length} Kommentare`,
+    ...state.tickerHeadlines,
+  ];
+  const tickerText = `${items.join(" · ")} ·`;
+  tickerSequences.forEach((sequence) => {
+    sequence.textContent = tickerText;
+  });
 }
 
 function finishIntro() {
@@ -1391,12 +1521,6 @@ document.addEventListener("click", (event) => {
   const reactionButton = target.closest("[data-reaction]");
   if (reactionButton) {
     handleReaction(reactionButton);
-    return;
-  }
-
-  const filterButton = target.closest("[data-diary-filter]");
-  if (filterButton) {
-    handleDiaryFilter(filterButton.dataset.diaryFilter);
     return;
   }
 

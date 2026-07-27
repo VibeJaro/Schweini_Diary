@@ -17,6 +17,15 @@ create table if not exists public.entries (
   date_label text,
   author text,
   images text[],
+  hero_line_1 text,
+  hero_line_2 text,
+  hero_line_3 text,
+  hero_line_4 text,
+  hero_deck text,
+  hero_label text,
+  hero_caption text,
+  hero_image text,
+  hero_enabled boolean not null default false,
   created_at timestamptz default now()
 );
 
@@ -42,6 +51,12 @@ alter table public.entries disable row level security;
 alter table public.comments disable row level security;
 alter table public.reactions disable row level security;
 ```
+
+Bei einer bereits vorhandenen Datenbank stattdessen die idempotente Migration
+`supabase/migrations/20260727_hero_fields.sql` einmal im Supabase SQL Editor
+ausführen. Sie ergänzt die Hero-Felder, prüft die zulässigen Textlängen und
+befüllt die bestehenden Geschichten mit ihren ausdrücklich gewählten
+Titelbildern.
 
 > Hinweis: Für ein echtes Produkt solltest du später RLS+Policies aktivieren. Für dieses Test-Tagebuch ist alles offen gelassen.
 
@@ -80,9 +95,14 @@ select id, 'Oma', 'Du kleiner Krümel-Räuber!' from public.entries limit 1;
 4. Deploy starten. Danach sollte die App unter deiner Vercel-URL erreichbar sein.
 
 ## 5) Was du in Supabase befüllen kannst
-- **entries**: Titel, Stimmung, optionales Datumslabel (wird sonst automatisch generiert), Autor, Text und eine Liste an Bild-URLs (Text-Array).
+- **entries**: Titel, Stimmung, optionales Datumslabel, Autor, Text und eine Liste an Bild-URLs. Dazu kommen vier kurze Hero-Zeilen, Deck, Bildlabel, Bildunterschrift und `hero_image`.
+- **hero_image**: Muss exakt einen vorhandenen Wert aus `images` enthalten. Die Website nimmt dafür nie mehr automatisch das erste Bild.
+- **hero_enabled**: Erst auf `true` setzen, wenn alle Hero-Texte vollständig sind und `hero_image` bewusst gewählt wurde.
 - **comments**: Author + Text pro Eintrag. Kann direkt im UI hinzugefügt werden.
 - **reactions**: Entsteht automatisch pro Klick im UI (ein Datensatz je Klick). Die Anzeige summiert die Klicks clientseitig.
+
+Die Prompt-Vorlage `content/schweini-story-vorlage.md` erzeugt bei einer neuen
+Geschichte den Tagebuchtext und alle benötigten Hero-Texte in einem Durchgang.
 
 ## 6) Nutzung
 - Neues Setup: `config.js` füllen, deployen, SQL-Script ausführen, fertig.
