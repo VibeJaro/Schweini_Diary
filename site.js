@@ -572,9 +572,9 @@ function renderHome() {
             </div>
             <h1 class="hero-title">
               <span class="hero-title__top" id="hero-line-1">${escapeHtml(slide.lines[0])}</span>
-              <span class="hero-title__red" id="hero-line-2">${escapeHtml(slide.lines[1])}</span>
+              <span class="hero-title__red hero-title__fit" id="hero-line-2">${escapeHtml(slide.lines[1])}</span>
               <span class="hero-title__script" id="hero-line-3">${escapeHtml(slide.lines[2])}</span>
-              <span id="hero-line-4">${escapeHtml(slide.lines[3])}</span>
+              <span class="hero-title__fit" id="hero-line-4">${escapeHtml(slide.lines[3])}</span>
             </h1>
             <p class="hero-deck" id="hero-deck">${escapeHtml(slide.deck)}</p>
             <div class="hero-actions">
@@ -1015,7 +1015,10 @@ function renderRoute(options = {}) {
   updateNavigation(route);
 
   if (!options.preserveScroll) window.scrollTo({ top: 0, behavior: "instant" });
-  if (route === "/") startHeroRotation();
+  if (route === "/") {
+    fitHeroLines();
+    startHeroRotation();
+  }
 }
 
 function updateNavigation(route) {
@@ -1049,10 +1052,35 @@ function setHeroSlide(index, userInitiated = false) {
     document.querySelectorAll("[data-hero-index]").forEach((button, buttonIndex) => {
       button.classList.toggle("is-active", buttonIndex === state.heroIndex);
     });
+    fitHeroLines();
     image.classList.remove("is-changing");
   }, 170);
 
   if (userInitiated) startHeroRotation();
+}
+
+function fitHeroLines() {
+  const title = document.querySelector(".hero-title");
+  const lines = title?.querySelectorAll(".hero-title__fit");
+  if (!title || !lines?.length) return;
+
+  lines.forEach((line) => {
+    line.style.fontSize = "";
+  });
+
+  window.requestAnimationFrame(() => {
+    const availableWidth = title.clientWidth - 8;
+    lines.forEach((line) => {
+      const range = document.createRange();
+      range.selectNodeContents(line);
+      const textWidth = range.getBoundingClientRect().width;
+      if (textWidth <= availableWidth) return;
+
+      const naturalSize = Number.parseFloat(window.getComputedStyle(line).fontSize);
+      const fittedSize = naturalSize * (availableWidth / textWidth) * .98;
+      line.style.fontSize = `${fittedSize}px`;
+    });
+  });
 }
 
 function startHeroRotation() {
@@ -1488,8 +1516,11 @@ lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) lightbox.close();
 });
 window.addEventListener("hashchange", () => renderRoute());
+window.addEventListener("resize", fitHeroLines);
 
 renderRoute();
 updateTicker();
 initIntro();
 loadLiveData();
+
+document.fonts?.ready.then(fitHeroLines);
