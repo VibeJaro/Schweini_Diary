@@ -1,4 +1,5 @@
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "./config.js";
+import { SUDOKU_FOODS, createSudokuGame, placeSudokuValue } from "./food-sudoku.js";
 
 const app = document.querySelector("#app");
 const toast = document.querySelector("#toast");
@@ -377,6 +378,7 @@ const state = {
   lightboxImages: [],
   lightboxIndex: 0,
   memory: null,
+  sudoku: null,
   chaosTimer: null,
   toastTimer: null,
 };
@@ -1001,8 +1003,189 @@ function resetMemoryState() {
   };
 }
 
+const sudokuCopy = {
+  eyebrow: "Das genialste Rätsel der Welt!",
+  title: "Schweinis Schlemmer-Sudoku",
+  subtitle:
+    "Hilf mir, mein gigantisches Festmahl zu planen, ohne dass sich die Snacks in die Quere kommen!",
+  instructions:
+    "Jedes Essen darf pro Reihe, Spalte und Block nur einmal vorkommen. Wähle oben einen Snack und fülle den Speiseplan perfekt aus!",
+  wrong: [
+    "Upsi! Das gibt Bauchschmerzen, versuch was anderes.",
+    "Pah! Zwei gleiche Snacks in einer Reihe sind sogar mir zu viel.",
+    "Falsches Timing für diesen Leckerbissen!",
+    "Banausen-Alarm! Das passt logisch und kulinarisch überhaupt nicht.",
+    "So ruiniert man ein Meisterwerk der Kochkunst!",
+    "Halt, Stopp! Dieser Platz ist schon für etwas anderes reserviert.",
+    "Da streikt mein brillanter Schweine-Verstand.",
+    "Fast richtig, aber beim Essen mache ich absolut keine Kompromisse!",
+  ],
+  block: [
+    "Ein brillanter Gang! Mehr davon!",
+    "Perfekt serviert, mein Magen knurrt freudig!",
+    "Ein meisterhafter Snack-Block! Weiter so!",
+    "Oh ja, dieser Gang ist ein echtes Gedicht!",
+    "Kulinarische Perfektion! Ich bin sehr stolz auf dich.",
+    "Die Spannung steigt, das Wasser läuft mir im Mund zusammen!",
+    "Ein weiterer triumphaler Schritt zu meinem Festmahl!",
+    "Hervorragend! Du bist offiziell mein neuer Lieblingskoch.",
+  ],
+  won: {
+    6: [
+      "Ein triumphaler Snack! Mein Bauch ist glücklich, mein Genie bestätigt.",
+      "Perfekte Logik, perfektes Essen! Ich schwebe im siebten Sahnehimmel!",
+      "Das war ein absolut hervorragendes Aufwärmtraining für meinen Magen!",
+    ],
+    9: [
+      "Das ultimative Festmahl ist vollbracht! Ich platze gleich vor Glück und Kuchen!",
+      "Ein historischer Sieg für die Schlemmer-Wissenschaft! Ich verleihe dir den goldenen Rüssel.",
+      "Gigantisch! Niemand plant ein Bankett so brillant wie wir zwei.",
+    ],
+  },
+};
+
+function initialSudokuMessage() {
+  return "Wähle ein Leckerli. Schweinis Menü wartet auf dein Genie.";
+}
+
+function resetSudokuState(size = 6) {
+  if (!state.sudoku) {
+    state.sudoku = {
+      activeSize: size,
+      games: {},
+    };
+  }
+  const game = createSudokuGame(size);
+  game.message = initialSudokuMessage();
+  game.messageType = "idle";
+  state.sudoku.games[size] = game;
+  state.sudoku.activeSize = size;
+}
+
+function activeSudokuGame() {
+  if (!state.sudoku) resetSudokuState();
+  const size = state.sudoku.activeSize;
+  if (!state.sudoku.games[size]) {
+    const game = createSudokuGame(size);
+    game.message = initialSudokuMessage();
+    game.messageType = "idle";
+    state.sudoku.games[size] = game;
+  }
+  return state.sudoku.games[size];
+}
+
+function sudokuFood(game, value) {
+  return SUDOKU_FOODS[game.foodOrder[value]];
+}
+
+function sudokuCellLabel(game, value, index, given) {
+  const row = Math.floor(index / game.size) + 1;
+  const column = (index % game.size) + 1;
+  if (value < 0) return `Zeile ${row}, Spalte ${column}, leer`;
+  const food = sudokuFood(game, value);
+  return `Zeile ${row}, Spalte ${column}, ${given ? "Vorgabe" : "gelöst"}: ${food.label}`;
+}
+
+function renderSudoku() {
+  const game = activeSudokuGame();
+  const completed = game.completedBlocks.size;
+  const cells = game.values
+    .map((value, index) => {
+      const column = index % game.size;
+      const row = Math.floor(index / game.size);
+      const borderRight =
+        (column + 1) % game.blockColumns === 0 && column + 1 !== game.size
+          ? " sudoku-cell--block-right"
+          : "";
+      const borderBottom =
+        (row + 1) % game.blockRows === 0 && row + 1 !== game.size
+          ? " sudoku-cell--block-bottom"
+          : "";
+      const given = game.givens[index];
+      const filled = value >= 0;
+      const food = filled ? sudokuFood(game, value) : null;
+      return `
+        <button
+          class="sudoku-cell ${given ? "is-given" : ""} ${filled && !given ? "is-filled" : ""}${borderRight}${borderBottom}"
+          type="button"
+          data-sudoku-cell="${index}"
+          aria-label="${sudokuCellLabel(game, value, index, given)}"
+          ${filled ? 'aria-disabled="true"' : ""}
+        ><span aria-hidden="true">${food?.symbol || ""}</span></button>`;
+    })
+    .join("");
+
+  const palette = Array.from({ length: game.size }, (_, value) => {
+    const food = sudokuFood(game, value);
+    return `
+      <button class="sudoku-food ${game.selectedValue === value ? "is-selected" : ""}"
+        type="button" data-sudoku-value="${value}" aria-pressed="${game.selectedValue === value}"
+        aria-label="${food.label} auswählen, Taste ${value + 1}">
+        <span aria-hidden="true">${food.symbol}</span>
+        <small>${food.label}</small>
+        <kbd>${value + 1}</kbd>
+      </button>`;
+  }).join("");
+
+  const courses = Array.from({ length: game.size }, (_, block) => {
+    const isComplete = game.completedBlocks.has(block);
+    const food = sudokuFood(game, block);
+    return `
+      <span class="meal-course ${isComplete ? "is-served" : ""}" data-meal-course="${block}"
+        aria-label="Gang ${block + 1}: ${isComplete ? `${food.label} serviert` : "noch leer"}">
+        <span aria-hidden="true">${isComplete ? food.symbol : "🍽️"}</span>
+      </span>`;
+  }).join("");
+
+  return `
+    <article class="game-panel game-panel--sudoku ${game.solved ? "is-won" : ""}" data-sudoku-panel>
+      <header class="game-panel__header sudoku-header">
+        <div><span>Spiel 02 · ${sudokuCopy.eyebrow}</span><h2>${sudokuCopy.title}</h2></div>
+        <div class="game-status" id="sudoku-status">${completed}/${game.size} Gänge</div>
+      </header>
+      <p class="sudoku-intro">${sudokuCopy.subtitle}</p>
+      <div class="sudoku-mode-switch" aria-label="Sudoku-Größe">
+        ${[6, 9]
+          .map(
+            (size) => `
+              <button type="button" data-sudoku-size="${size}"
+                class="${game.size === size ? "is-active" : ""}" aria-pressed="${game.size === size}">
+                <strong>${size}×${size}</strong>
+                <span>${size === 6 ? "Kleiner Nachmittagssnack" : "Gigantisches Festmahl"}</span>
+              </button>`,
+          )
+          .join("")}
+      </div>
+      <p class="sudoku-instructions">${sudokuCopy.instructions}</p>
+      <div class="sudoku-palette" role="toolbar" aria-label="Leckerei auswählen">${palette}</div>
+      <div class="sudoku-board-wrap">
+        <div class="sudoku-board sudoku-board--${game.size}" role="grid"
+          aria-label="${game.size} mal ${game.size} Schlemmer-Sudoku"
+          style="--sudoku-size: ${game.size}">${cells}</div>
+        <div class="sudoku-finale" ${game.solved ? "" : "hidden"}>
+          <span aria-hidden="true">🐷🎉</span>
+          <strong>Festmahl fertig!</strong>
+          <p>${game.solved ? game.message : ""}</p>
+        </div>
+      </div>
+      <div class="meal-progress">
+        <div>
+          <span>Mein Menü</span>
+          <strong>${completed} von ${game.size} Gängen serviert</strong>
+        </div>
+        <div class="meal-courses" aria-label="Fortschritt der Mahlzeit"
+          style="--course-count: ${game.size}">${courses}</div>
+      </div>
+      <p class="sudoku-message is-${game.messageType}" id="sudoku-message" aria-live="polite">
+        ${game.message}
+      </p>
+      <button class="game-restart" type="button" data-sudoku-restart>Teller abräumen</button>
+    </article>`;
+}
+
 function renderGames() {
   if (!state.memory) resetMemoryState();
+  if (!state.sudoku) resetSudokuState();
   return `
     <div class="route">
       <header class="page-hero page-shell" data-watermark="?">
@@ -1030,16 +1213,7 @@ function renderGames() {
           <button class="game-restart" type="button" data-memory-restart>Neu mischen</button>
         </article>
 
-        <article class="game-panel game-panel--oracle">
-          <header class="game-panel__header">
-            <div><span>Spiel 02</span><h2>Rüssel-Orakel</h2></div>
-          </header>
-          <div class="oracle-stage">
-            <div class="oracle-pig" aria-hidden="true">🐽</div>
-            <p class="oracle-answer" id="oracle-answer">Stelle dir eine wichtige Frage. Schweinis Rüssel kennt vermutlich die Antwort.</p>
-            <button class="button button--red" type="button" data-oracle>Rüssel befragen →</button>
-          </div>
-        </article>
+        ${renderSudoku()}
       </section>
       ${renderFooter()}
     </div>`;
@@ -1289,19 +1463,151 @@ function restartMemory() {
   renderRoute({ preserveScroll: true });
 }
 
-function askOracle() {
-  const answers = [
-    "Ja. Aber iss vorher ein Stück Kuchen.",
-    "Nein. Das klingt nach Aufräumen.",
-    "Schweinis Quellen sagen: sehr wahrscheinlich.",
-    "Frage Elisa. Sie ist in solchen Dingen erstaunlich klug.",
-    "Rüssel sagt ja. Bauch sagt Sahnetorte.",
-    "Unklar. Dramatisch seufzen und später noch einmal fragen.",
-    "Nur wenn Schweini dabei die Hauptrolle bekommt.",
-  ];
-  const answer = answers[Math.floor(Math.random() * answers.length)];
-  const element = document.querySelector("#oracle-answer");
-  if (element) element.textContent = answer;
+function sudokuLine(lines) {
+  return lines[Math.floor(Math.random() * lines.length)];
+}
+
+function updateSudokuMessage(game, message, type = "idle") {
+  game.message = message;
+  game.messageType = type;
+  const element = document.querySelector("#sudoku-message");
+  if (!element) return;
+  element.textContent = message;
+  element.className = `sudoku-message is-${type}`;
+}
+
+function selectSudokuValue(value) {
+  const game = activeSudokuGame();
+  if (!Number.isInteger(value) || value < 0 || value >= game.size || game.solved) return;
+  game.selectedValue = value;
+
+  document.querySelectorAll("[data-sudoku-value]").forEach((button) => {
+    const selected = Number(button.dataset.sudokuValue) === value;
+    button.classList.toggle("is-selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+
+  const food = sudokuFood(game, value);
+  updateSudokuMessage(game, `${food.label} liegt bereit. Jetzt fehlt nur noch das richtige Feld.`, "ready");
+}
+
+function switchSudokuSize(size) {
+  if (!state.sudoku || ![6, 9].includes(size)) return;
+  state.sudoku.activeSize = size;
+  activeSudokuGame();
+  renderRoute({ preserveScroll: true });
+}
+
+function restartSudoku() {
+  const size = activeSudokuGame().size;
+  resetSudokuState(size);
+  renderRoute({ preserveScroll: true });
+}
+
+function animateSudokuCourse(game, blockIndex, sourceElement) {
+  const blockCells = Array.from(document.querySelectorAll("[data-sudoku-cell]")).filter(
+    (cell) => {
+      const index = Number(cell.dataset.sudokuCell);
+      const row = Math.floor(index / game.size);
+      const column = index % game.size;
+      const blocksPerRow = game.size / game.blockColumns;
+      const cellBlock =
+        Math.floor(row / game.blockRows) * blocksPerRow + Math.floor(column / game.blockColumns);
+      return cellBlock === blockIndex;
+    },
+  );
+  blockCells.forEach((cell) => cell.classList.add("is-block-complete"));
+  window.setTimeout(
+    () => blockCells.forEach((cell) => cell.classList.remove("is-block-complete")),
+    900,
+  );
+
+  const target = document.querySelector(`[data-meal-course="${blockIndex}"]`);
+  if (!target) return;
+  target.classList.add("is-served", "is-new");
+  target.querySelector("span").textContent = sudokuFood(game, blockIndex).symbol;
+  target.setAttribute(
+    "aria-label",
+    `Gang ${blockIndex + 1}: ${sudokuFood(game, blockIndex).label} serviert`,
+  );
+  window.setTimeout(() => target.classList.remove("is-new"), 900);
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !sourceElement) return;
+  const start = sourceElement.getBoundingClientRect();
+  const finish = target.getBoundingClientRect();
+  const flyer = document.createElement("span");
+  flyer.className = "sudoku-course-flyer";
+  flyer.textContent = sudokuFood(game, blockIndex).symbol;
+  flyer.style.setProperty("--fly-start-x", `${start.left + start.width / 2}px`);
+  flyer.style.setProperty("--fly-start-y", `${start.top + start.height / 2}px`);
+  flyer.style.setProperty("--fly-end-x", `${finish.left + finish.width / 2}px`);
+  flyer.style.setProperty("--fly-end-y", `${finish.top + finish.height / 2}px`);
+  flyer.setAttribute("aria-hidden", "true");
+  document.body.append(flyer);
+  flyer.addEventListener("animationend", () => flyer.remove(), { once: true });
+}
+
+function updateSudokuProgress(game) {
+  const completed = game.completedBlocks.size;
+  const status = document.querySelector("#sudoku-status");
+  if (status) status.textContent = `${completed}/${game.size} Gänge`;
+  const progress = document.querySelector(".meal-progress strong");
+  if (progress) progress.textContent = `${completed} von ${game.size} Gängen serviert`;
+}
+
+function celebrateSudokuWin(game) {
+  const message = sudokuLine(sudokuCopy.won[game.size]);
+  updateSudokuMessage(game, message, "won");
+  const panel = document.querySelector("[data-sudoku-panel]");
+  const finale = panel?.querySelector(".sudoku-finale");
+  panel?.classList.add("is-won");
+  if (finale) {
+    finale.hidden = false;
+    finale.querySelector("p").textContent = message;
+    finale.classList.remove("is-celebrating");
+    void finale.offsetWidth;
+    finale.classList.add("is-celebrating");
+  }
+  showToast("Schweinis Festmahl ist komplett. Der Rüssel applaudiert!");
+}
+
+function handleSudokuCell(index, element) {
+  const game = activeSudokuGame();
+  if (game.selectedValue === null) {
+    updateSudokuMessage(game, "Erst oben ein Leckerli auswählen, dann wird serviert.", "idle");
+    return;
+  }
+
+  const result = placeSudokuValue(game, index, game.selectedValue);
+  if (result.status === "ignored") return;
+
+  if (result.status === "wrong") {
+    updateSudokuMessage(game, sudokuLine(sudokuCopy.wrong), "wrong");
+    element.classList.remove("is-wrong");
+    void element.offsetWidth;
+    element.classList.add("is-wrong");
+    window.setTimeout(() => element.classList.remove("is-wrong"), 620);
+    return;
+  }
+
+  const food = sudokuFood(game, game.selectedValue);
+  element.querySelector("span").textContent = food.symbol;
+  element.classList.add("is-filled", "is-correct");
+  element.setAttribute("aria-disabled", "true");
+  element.setAttribute("aria-label", sudokuCellLabel(game, game.selectedValue, index, false));
+  window.setTimeout(() => element.classList.remove("is-correct"), 620);
+
+  if (result.blockCompleted !== null) {
+    updateSudokuMessage(game, sudokuLine(sudokuCopy.block), "block");
+    animateSudokuCourse(game, result.blockCompleted, element);
+    updateSudokuProgress(game);
+  } else {
+    updateSudokuMessage(game, `${food.label} sitzt. Natürlich dank Schweinis genialem Plan.`, "correct");
+  }
+
+  if (result.solved) {
+    window.setTimeout(() => celebrateSudokuWin(game), result.blockCompleted !== null ? 650 : 0);
+  }
 }
 
 function triggerChaos() {
@@ -1502,8 +1808,24 @@ document.addEventListener("click", (event) => {
     restartMemory();
     return;
   }
-  if (target.closest("[data-oracle]")) {
-    askOracle();
+
+  const sudokuMode = target.closest("[data-sudoku-size]");
+  if (sudokuMode) {
+    switchSudokuSize(Number(sudokuMode.dataset.sudokuSize));
+    return;
+  }
+  const sudokuFoodButton = target.closest("[data-sudoku-value]");
+  if (sudokuFoodButton) {
+    selectSudokuValue(Number(sudokuFoodButton.dataset.sudokuValue));
+    return;
+  }
+  const sudokuCell = target.closest("[data-sudoku-cell]");
+  if (sudokuCell) {
+    handleSudokuCell(Number(sudokuCell.dataset.sudokuCell), sudokuCell);
+    return;
+  }
+  if (target.closest("[data-sudoku-restart]")) {
+    restartSudoku();
     return;
   }
   if (target.closest("[data-chaos]")) {
@@ -1526,6 +1848,43 @@ document.addEventListener("keydown", (event) => {
   }
   if (lightbox.open && event.key === "ArrowLeft") moveLightbox(-1);
   if (lightbox.open && event.key === "ArrowRight") moveLightbox(1);
+
+  const sudokuPanel = document.querySelector("[data-sudoku-panel]");
+  if (!sudokuPanel) return;
+  const game = activeSudokuGame();
+
+  if (/^[1-9]$/.test(event.key)) {
+    const value = Number(event.key) - 1;
+    if (value < game.size) {
+      event.preventDefault();
+      selectSudokuValue(value);
+    }
+    return;
+  }
+
+  const cell = event.target.closest?.("[data-sudoku-cell]");
+  if (!cell) return;
+  if (event.key === "Enter") {
+    event.preventDefault();
+    handleSudokuCell(Number(cell.dataset.sudokuCell), cell);
+    return;
+  }
+
+  const directions = {
+    ArrowLeft: [0, -1],
+    ArrowRight: [0, 1],
+    ArrowUp: [-1, 0],
+    ArrowDown: [1, 0],
+  };
+  const direction = directions[event.key];
+  if (!direction) return;
+  event.preventDefault();
+  const index = Number(cell.dataset.sudokuCell);
+  const row = Math.floor(index / game.size);
+  const column = index % game.size;
+  const nextRow = Math.max(0, Math.min(game.size - 1, row + direction[0]));
+  const nextColumn = Math.max(0, Math.min(game.size - 1, column + direction[1]));
+  document.querySelector(`[data-sudoku-cell="${nextRow * game.size + nextColumn}"]`)?.focus();
 });
 
 lightbox.addEventListener("click", (event) => {

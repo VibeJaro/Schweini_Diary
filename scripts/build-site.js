@@ -6,7 +6,7 @@ const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectDirectory = path.resolve(scriptDirectory, "..");
 const outputDirectory = path.join(projectDirectory, "dist");
 
-const siteFiles = ["site.css", "site.js"];
+const siteFiles = ["site.css", "site.js", "food-sudoku.js"];
 
 await rm(outputDirectory, { recursive: true, force: true });
 await mkdir(outputDirectory, { recursive: true });
