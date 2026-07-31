@@ -485,6 +485,10 @@ function imagePath(source) {
   return source.replace(/\.png$/i, ".webp");
 }
 
+function entryCoverImage(entry) {
+  return imagePath(entry?.hero_image || entry?.images?.[0]);
+}
+
 function formatDateTime(value, fallback = "Neulich") {
   try {
     const parts = new Intl.DateTimeFormat("de-DE", {
@@ -592,7 +596,7 @@ function renderStoryFeature(entry) {
   return `
     <article class="story-feature">
       <div class="story-feature__image">
-        <img src="${escapeHtml(imagePath(entry.images?.[0]))}" alt="${escapeHtml(entry.title)}" loading="lazy">
+        <img src="${escapeHtml(entryCoverImage(entry))}" alt="${escapeHtml(entry.title)}" loading="lazy">
         <span class="story-feature__badge">Chef-Sache</span>
       </div>
       <div class="story-feature__body">
@@ -618,7 +622,7 @@ function renderStoryCards(entries, limit = entries.length) {
         .map(
           (entry, index) => `
             <article class="story-card">
-              <img src="${escapeHtml(imagePath(entry.images?.[0]))}" alt="${escapeHtml(entry.title)}" loading="lazy">
+              <img src="${escapeHtml(entryCoverImage(entry))}" alt="${escapeHtml(entry.title)}" loading="lazy">
               <div class="story-card__body">
                 <span class="story-card__index">Akte ${String(index + 2).padStart(2, "0")} · ${escapeHtml(entryDate(entry))}</span>
                 <h3>${escapeHtml(entry.title)}</h3>
@@ -800,7 +804,7 @@ function renderDiary() {
               (entry, index) => `
                 <article class="diary-card">
                   <div class="diary-card__image">
-                    <img src="${escapeHtml(imagePath(entry.images?.[0]))}" alt="${escapeHtml(entry.title)}" loading="lazy">
+                    <img src="${escapeHtml(entryCoverImage(entry))}" alt="${escapeHtml(entry.title)}" loading="lazy">
                     <span class="diary-card__number">${String(index + 1).padStart(2, "0")}</span>
                   </div>
                   <div class="diary-card__body">
@@ -835,13 +839,15 @@ function renderStory(entryId) {
 
   const comments = commentsFor(entry.id);
   const images = entry.images?.length ? entry.images.map(imagePath) : ["public/images/profile.webp"];
+  const coverImage = entryCoverImage(entry);
+  const coverIndex = Math.max(0, images.indexOf(coverImage));
 
   return `
     <div class="route story-detail">
       <section class="page-shell story-detail__mast">
         <div class="story-detail__hero">
-          <button class="gallery-button" type="button" data-lightbox-entry="${escapeHtml(entry.id)}" data-lightbox-index="0">
-            <img src="${escapeHtml(images[0])}" alt="${escapeHtml(entry.title)}">
+          <button class="gallery-button" type="button" data-lightbox-entry="${escapeHtml(entry.id)}" data-lightbox-index="${coverIndex}">
+            <img src="${escapeHtml(coverImage)}" alt="${escapeHtml(entry.title)}">
           </button>
         </div>
         <div class="story-detail__copy">
