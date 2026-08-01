@@ -37,10 +37,25 @@ const outputPublicDirectory = path.join(outputDirectory, "public");
 const outputImageDirectory = path.join(outputPublicDirectory, "images");
 await mkdir(outputImageDirectory, { recursive: true });
 
-for (const filename of await readdir(sourceImageDirectory)) {
-  if (!filename.endsWith(".webp")) continue;
-  await cp(path.join(sourceImageDirectory, filename), path.join(outputImageDirectory, filename));
+async function copyWebpTree(sourceDirectory, targetDirectory) {
+  await mkdir(targetDirectory, { recursive: true });
+
+  for (const entry of await readdir(sourceDirectory, { withFileTypes: true })) {
+    const sourcePath = path.join(sourceDirectory, entry.name);
+    const targetPath = path.join(targetDirectory, entry.name);
+
+    if (entry.isDirectory()) {
+      await copyWebpTree(sourcePath, targetPath);
+      continue;
+    }
+
+    if (entry.isFile() && entry.name.endsWith(".webp")) {
+      await cp(sourcePath, targetPath);
+    }
+  }
 }
+
+await copyWebpTree(sourceImageDirectory, outputImageDirectory);
 await cp(path.join(sourcePublicDirectory, "og.png"), path.join(outputPublicDirectory, "og.png"));
 
 const { SUPABASE_URL, SUPABASE_ANON_KEY } = process.env;
